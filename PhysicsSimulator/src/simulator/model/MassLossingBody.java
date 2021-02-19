@@ -6,7 +6,7 @@ public class MassLossingBody extends Body {
 	
 	protected double lossFactor;
 	protected double lossFrequency;
-	protected double contador;
+	protected double c;//contador
 
 	public MassLossingBody(double lossFactor, double lossFrequency,String id, Vector2D position, Vector2D velocity, double mass) {
 		super(id, position, velocity, mass);
@@ -18,12 +18,18 @@ public class MassLossingBody extends Body {
 		if(this.lossFrequency>=0) {
 			this.lossFrequency = lossFrequency;
 		}
-		this.contador = contador;
+		this.c = 0.0;
 	}
 	
 	void move(double t) {
 		
+		super.move(t);
+		this.c += t;
+		if(c >= this.lossFrequency) {
+		this.mass = mass*(1-this.lossFactor);
+		c=0.0;
 		
+		}
 	}
 	
 }
