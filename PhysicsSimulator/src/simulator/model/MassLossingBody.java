@@ -21,5 +21,9 @@ public class MassLossingBody extends Body {
 		this.contador = contador;
 	}
 	
-
+	void move(double t) {
+		
+		
+	}
+	
 }
