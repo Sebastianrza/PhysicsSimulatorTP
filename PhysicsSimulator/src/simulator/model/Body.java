@@ -1,4 +1,7 @@
 package simulator.model;
 
-public class Body {
+public class Body {//clase cuerpo
+
+
 }
+
