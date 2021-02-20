@@ -1,5 +1,7 @@
 package simulator.launcher;
 
+import java.util.ArrayList;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -9,10 +11,14 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.json.JSONObject;
 
+import simulator.control.Controller;
 import simulator.control.StateComparator;
+import simulator.factories.Builder;
 import simulator.factories.Factory;
+import simulator.factories.NewtonUniversalGravitationBuilder;
 import simulator.model.Body;
 import simulator.model.ForceLaws;
+import simulator.model.PhysicsSimulator;
 
 public class Main {
 
@@ -21,6 +27,7 @@ public class Main {
 	private final static Double _dtimeDefaultValue = 2500.0;
 	private final static String _forceLawsDefaultValue = "nlug";
 	private final static String _stateComparatorDefaultValue = "epseq";
+	private final static Integer _stepsDefaultValue = 150;
 
 	// some attributes to stores values corresponding to command-line parameters
 	//
@@ -35,10 +42,17 @@ public class Main {
 	private static Factory<StateComparator> _stateComparatorFactory;
 
 	private static void init() {
+		
 		// TODO initialize the bodies factory
-
+		ArrayList<Builder<Body>> bodyBuilder = new ArrayList<>();
+		//bodyBuilder.add();
+		//bodyBuilder.add();
+		
 		// TODO initialize the force laws factory
-
+		ArrayList<Builder<ForceLaws>> forceLawsBuilder = new ArrayList<>();
+		//forceLawsBuilder.add();
+		//forceLawsBuilder.add();
+		//forceLawsBuilder.add();
 		// TODO initialize the state comparator
 	}
 
@@ -111,6 +125,21 @@ public class Main {
 						+ factoryPossibleValues(_stateComparatorFactory) + ". Default value: '"
 						+ _stateComparatorDefaultValue + "'.")
 				.build());
+		//output file
+		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg()
+				.desc("Output file, where output is written. Default value: the standard output.").build());
+
+		//Steps
+		cmdLineOptions.addOption(Option.builder("s").longOpt("steps").hasArg()
+				.desc("An integer representing the number of simulation steps. Default value: "+ _stepsDefaultValue + ".")
+				.build());
+		
+		//Expected-output
+		
+		cmdLineOptions.addOption(Option.builder("eo").longOpt("expected-output").hasArg()
+				.desc("The expected output file. If not provided no comparison is applied").build());
+		
+	
 
 		return cmdLineOptions;
 	}
@@ -212,6 +241,10 @@ public class Main {
 	}
 
 	private static void startBatchMode() throws Exception {
+		PhysicsSimulator ps = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo));
+		
+		Controller c = new Controller(ps, _bodyFactory);
+		c.loadBodies(in);
 		// TODO complete this method
 	}
 
