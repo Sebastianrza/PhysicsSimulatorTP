@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 public abstract class Builder<T>{
 
-	protected String typetag;
+	protected final String typetag;
 	
 	public Builder(String typetag) {
 		if(typetag ==null) {

@@ -2,6 +2,7 @@ package simulator.control;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +57,19 @@ public class Controller {
 	}
 	
 	public void run(int n, OutputStream out, InputStream expOut, StateComparator cmp) {
+		
+		PrintStream p = new PrintStream(out);
+		p.println("{");
+		p.println("\"states\": [");
+		p.print(ps);
+		
+		if(n != 0) p.println(", ");
+		for (int i = 0; i < n; i++) {
+			ps.advance();
+			p.print(ps);
+		}
+		p.println("]");
+		p.println("}");
 		
 	}
 }

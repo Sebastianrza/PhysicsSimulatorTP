@@ -1,5 +1,8 @@
 package simulator.launcher;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
@@ -242,9 +245,15 @@ public class Main {
 
 	private static void startBatchMode() throws Exception {
 		PhysicsSimulator ps = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo));
-		
+		try {
+			InputStream in = new FileInputStream(_inFile);
+		}catch(IOException | IllegalArgumentException ex){
+			System.err.println(ex.getLocalizedMessage());
+			System.exit(0);
+		}
 		Controller c = new Controller(ps, _bodyFactory);
-		c.loadBodies(in);
+		//c.loadBodies(in);
+		//c.run(n, out, expOut, cmp);
 		// TODO complete this method
 	}
 
