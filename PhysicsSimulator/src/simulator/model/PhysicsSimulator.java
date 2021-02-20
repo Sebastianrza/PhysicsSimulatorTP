@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class PhysicsSimulator {
@@ -12,8 +13,12 @@ public class PhysicsSimulator {
 	
 	public PhysicsSimulator(Double time, ForceLaws fl) {
 		
-		this.time = time;
-		this.fl = fl;
+		try {
+			this.time = 0.0;
+			this.fl = fl;
+		}catch(IllegalArgumentException e) {
+			System.out.println("Error: "+e.getMessage());
+		}
 	}
 	
 	public double getTime() {
@@ -45,10 +50,12 @@ public class PhysicsSimulator {
 	public void advance() {
 		for(Body o: listBody) {
 			o.resetForce();
-			o.move(this.time);
 		}
 		this.fl.apply(listBody);
-		this.setTime(this.getTime()+1);
+		for(Body o: listBody) {
+			o.move(this.time);
+		}
+		this.setTime(time+this.getTime());
 	}
 	
 	public void addBody(Body b) {
@@ -57,8 +64,16 @@ public class PhysicsSimulator {
 	
 	public JSONObject getState() {
 		
+		JSONObject ps = new JSONObject();
+		JSONArray bo = new JSONArray();
 		
+		for(Body e: listBody) {
+			bo.put(e.getState());
+		}
 		
+		ps.put("time", this.getTime());
+		ps.put("bodies", bo );
+		return ps;
 	}
 	public String toString() {
 		return getState().toString();
