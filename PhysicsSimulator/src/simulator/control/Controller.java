@@ -3,6 +3,8 @@ package simulator.control;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -38,7 +40,19 @@ public class Controller {
 	}
 
 	public void loadBodies(InputStream in) {
-		JSONObject lb = new JSONObject(new JSONTokener(in));
+		try {
+		
+			JSONObject jsonInput = new JSONObject(new JSONTokener(in));
+			JSONArray bodies = jsonInput.getJSONArray("bodies");
+			
+			for(int i = 0; i < bodies.length(); i++) {
+				ps.addBody(fb.createInstance(bodies.getJSONObject(i)));
+			}
+			
+		}catch(JSONException ex) {
+			throw new IllegalArgumentException("Invalid JSONObject bodies ", ex);
+		}
+		
 	}
 	
 	public void run(int n, OutputStream out, InputStream expOut, StateComparator cmp) {
