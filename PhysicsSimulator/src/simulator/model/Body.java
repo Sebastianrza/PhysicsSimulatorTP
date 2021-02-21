@@ -7,7 +7,7 @@ import simulator.misc.Vector2D;
 public class Body {
 	
 	protected String id;
-	protected Vector2D force;
+	protected Vector2D force = new Vector2D();
 	protected Vector2D position;
 	protected Vector2D velocity;
 	protected Vector2D acceleration;
