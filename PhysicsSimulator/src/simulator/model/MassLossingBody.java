@@ -8,7 +8,7 @@ public class MassLossingBody extends Body {
 	protected double lossFrequency;
 	protected double c;//contador
 
-	public MassLossingBody(double lossFactor, double lossFrequency,String id, Vector2D position, Vector2D velocity, double mass) {
+	public MassLossingBody(String id, Vector2D position, Vector2D velocity, double mass, double lossFactor, double lossFrequency) {
 		super(id, position, velocity, mass);
 		// TODO Auto-generated constructor stub
 		
