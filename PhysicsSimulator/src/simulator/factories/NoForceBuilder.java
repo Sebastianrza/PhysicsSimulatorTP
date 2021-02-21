@@ -1,4 +1,4 @@
-package simulator.control;
+package simulator.factories;
 
 public class NoForceBuilder {
 
