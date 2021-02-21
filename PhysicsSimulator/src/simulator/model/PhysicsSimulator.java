@@ -59,7 +59,11 @@ public class PhysicsSimulator {
 	}
 	
 	public void addBody(Body b) {
-		this.listBody.add(b);
+		if(this.listBody.contains(b)==false) {
+			this.listBody.add(b);
+		}else {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	public JSONObject getState() {
