@@ -20,7 +20,14 @@ public abstract class Builder<T>{
 	}
 	
 	public T createInstance(JSONObject info) {
-		return null;
+		T b = null;
+		if(typetag != null && typetag.equals(info.getString("type"))) {
+			
+			b = createInstance(info.getJSONObject("data"));
+		}else {
+			throw new IllegalArgumentException();
+		}
+		return b;
 		
 	}
 	
