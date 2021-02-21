@@ -10,7 +10,7 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 		// TODO Auto-generated method stub
 		for(int i = 0; i < bs.size(); i++) {
 			Body bo = bs.get(i);
-			bo.setAcceleration(bo.getPosition().direction().scale(gc));
+			bo.setAcceleration(bo.getPosition().direction().scale(-gc));
 		}
 	}
 
