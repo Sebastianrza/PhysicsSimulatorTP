@@ -4,20 +4,13 @@ import org.json.JSONObject;
 
 public abstract class Builder<T>{
 
-	protected final String typetag;
+	protected String typetag;
 	
-	public Builder(String typetag) {
-		if(typetag ==null) {
-			
-			throw new IllegalArgumentException("Invalid type: "+ typetag);
-		}
+	public Builder() {
 		
-		else {
-		
-			this.typetag = typetag;
 		
 		}
-	}
+	
 	
 	public T createInstance(JSONObject info) {
 		T b = null;
@@ -35,4 +28,5 @@ public abstract class Builder<T>{
 		return null;
 		
 	}
+	protected abstract T createTheInstance(JSONObject data);
 }
