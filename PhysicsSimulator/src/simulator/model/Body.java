@@ -75,7 +75,10 @@ public class Body {
 		if(this.mass == 0) {
 			this.acceleration = new Vector2D();
 		}else {
-			//this.acceleration = this.force/this.mass; 
+			/*
+			double a = this.force.getX()/mass;
+			double b = this.force.getY()/mass;
+			this.acceleration = new Vector2D (a,b);*/
 		}
 		this.position = position.plus(velocity.scale(t).plus(acceleration.scale(t*t/2)));
 		this.velocity = velocity.plus(acceleration.scale(t));
