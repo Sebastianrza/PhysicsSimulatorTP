@@ -16,8 +16,12 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	@Override
 	protected ForceLaws createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
+		try {
 		Vector2D mtfp = new Vector2D();
 		return new MovingTowardsFixedPoint(mtfp, 9.81);
+		}catch(Exception e){
+			throw new IllegalArgumentException();
+		}
 	}
 
 }

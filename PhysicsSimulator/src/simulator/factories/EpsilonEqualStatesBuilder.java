@@ -9,7 +9,11 @@ public class EpsilonEqualStatesBuilder  extends Builder<StateComparator> {
 	@Override
 	protected StateComparator createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
+		try {
 		return new EpsilonEqualStates(0.0);
+	
+		}catch(Exception e){
+			throw new IllegalArgumentException();
+		}
 	}
-
 }

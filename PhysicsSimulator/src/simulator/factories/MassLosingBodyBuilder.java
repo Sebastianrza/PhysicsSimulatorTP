@@ -29,7 +29,7 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 		return new MassLossingBody(id, position, velocity, mass, lossFactor, lossFrequency);
 		
 		}else {
-			return null;
+			throw new IllegalArgumentException();
 		}
 
 	}

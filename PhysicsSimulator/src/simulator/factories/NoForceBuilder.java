@@ -10,7 +10,11 @@ public class NoForceBuilder extends Builder<ForceLaws>{
 	@Override
 	protected ForceLaws createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
+		try {
 		return new NoForce();
+		}catch(Exception e) {
+			throw new IllegalArgumentException();
+		}
 	}
-
+	
 }

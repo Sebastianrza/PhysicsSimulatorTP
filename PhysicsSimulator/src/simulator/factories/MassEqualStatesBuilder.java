@@ -14,10 +14,13 @@ public class MassEqualStatesBuilder extends Builder<StateComparator>{
 
 	@Override
 	protected StateComparator createTheInstance(JSONObject data) {
-		
+		try {
 		MassEqualStates mes;
 		mes = new MassEqualStates();
 		return mes;
+		}catch(Exception e) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 }

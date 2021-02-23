@@ -14,12 +14,19 @@ public class BasicBodyBuilder extends Builder<Body> {
 
 	@Override
 	protected Body createTheInstance(JSONObject data) {
+		 
+		try {
 		 String id = data.getString("id");
 		 Vector2D position = (Vector2D) data.get("p");
 		 Vector2D velocity = (Vector2D) data.get("v");; 
 		 Double mass = data.getDouble("mass");
 		 
 		 return new Body(id, position, velocity, mass);
+		 
+		}catch(Exception eo) {
+			throw new IllegalArgumentException();
+		}
+	
 	}
 
 }
