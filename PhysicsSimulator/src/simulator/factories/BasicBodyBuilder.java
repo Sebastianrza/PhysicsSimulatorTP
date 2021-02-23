@@ -2,19 +2,24 @@ package simulator.factories;
 
 import org.json.JSONObject;
 
+import simulator.misc.Vector2D;
 import simulator.model.Body;
 
 public class BasicBodyBuilder extends Builder<Body> {
 
-	public BasicBodyBuilder(String typetag) {
-		//super(typetag);
+	public BasicBodyBuilder() {
+		
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected Body createTheInstance(JSONObject data) {
-		// TODO Auto-generated method stub
-		return null;
+		 String id = data.getString("id");
+		 Vector2D position = (Vector2D) data.get("p");
+		 Vector2D velocity = (Vector2D) data.get("v");; 
+		 Double mass = data.getDouble("mass");
+		 
+		 return new Body(id, position, velocity, mass);
 	}
 
 }
