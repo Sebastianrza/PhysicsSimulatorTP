@@ -9,7 +9,7 @@ import simulator.model.MassLossingBody;
 public class MassLosingBodyBuilder extends Builder<Body>{
 
 	public MassLosingBodyBuilder() {
-		//super("");
+		
 		// TODO Auto-generated constructor stub
 	}
 

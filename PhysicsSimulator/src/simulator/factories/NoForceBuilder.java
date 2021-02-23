@@ -1,5 +1,16 @@
 package simulator.factories;
 
-public class NoForceBuilder {
+import org.json.JSONObject;
+
+import simulator.model.ForceLaws;
+import simulator.model.NoForce;
+
+public class NoForceBuilder extends Builder<ForceLaws>{
+
+	@Override
+	protected ForceLaws createTheInstance(JSONObject data) {
+		// TODO Auto-generated method stub
+		return new NoForce();
+	}
 
 }

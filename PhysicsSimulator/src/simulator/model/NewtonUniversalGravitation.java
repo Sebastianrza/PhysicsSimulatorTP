@@ -8,7 +8,8 @@ public class NewtonUniversalGravitation implements ForceLaws{
 	
 	protected double gc = 6.67E-11;
 	
-	public  NewtonUniversalGravitation() {
+	public  NewtonUniversalGravitation(double gc) {
+		this.gc = gc;
 		// TODO Auto-generated constructor stub
 	}
 	@Override
