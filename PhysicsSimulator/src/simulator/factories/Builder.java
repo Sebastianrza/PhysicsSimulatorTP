@@ -7,8 +7,6 @@ public abstract class Builder<T>{
 	protected String typetag;
 	
 	public Builder() {
-		
-		
 		}
 	
 	
@@ -25,8 +23,15 @@ public abstract class Builder<T>{
 	}
 	
 	public JSONObject getBuilderInfo() {
-		return null;
 		
+		JSONObject info = new JSONObject();
+		info.put("type", this.typetag);
+		info.put("data", createData());
+		return info;
+		
+	}
+	public JSONObject createData() {
+		return new JSONObject();
 	}
 	protected abstract T createTheInstance(JSONObject data);
 }
