@@ -75,10 +75,7 @@ public class Body {
 		if(this.mass == 0) {
 			this.acceleration = new Vector2D();
 		}else {
-			/*
-			double a = this.force.getX()/mass;
-			double b = this.force.getY()/mass;
-			this.acceleration = new Vector2D (a,b);*/
+			this.acceleration = this.force.scale(1/mass); // si falla algo revisar 
 		}
 		this.position = position.plus(velocity.scale(t).plus(acceleration.scale(t*t/2)));
 		this.velocity = velocity.plus(acceleration.scale(t));
@@ -90,7 +87,7 @@ public class Body {
 		
 		JSONObject bo = new JSONObject();
 		bo.put("id", this.id);
-		bo.put("m", this.id);
+		bo.put("m", this.mass);
 		bo.put("p", this.position);
 		bo.put("v", this.velocity);
 		bo.put("f", this.force);
