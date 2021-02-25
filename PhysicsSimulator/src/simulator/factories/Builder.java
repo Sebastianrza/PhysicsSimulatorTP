@@ -9,7 +9,6 @@ public abstract class Builder<T>{
 	public Builder() {
 		}
 	
-	
 	public T createInstance(JSONObject info) {
 		T b = null;
 		if(typetag != null && typetag.equals(info.getString("type"))) {
