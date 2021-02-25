@@ -16,23 +16,24 @@ public class NewtonUniversalGravitation implements ForceLaws{
 	@Override
 	public void apply(List<Body> bs) {
 		// TODO Auto-generated method stub
-		/*for (int i = 0; i < bs.size(); i++) { // se podria hacer mas corto usando un foreach 
-			Body bo = bs.get(i);
-			
-			if(bo.getMass() == 0.0) {
-				bo.acceleration = new Vector2D();
-				bo.velocity = new Vector2D();
+		for (int i = 0; i < bs.size(); i++) { 
+			Body boi = bs.get(i);
+			if(boi.getMass() == 0.0) {
+				boi.acceleration = new Vector2D();
+				boi.velocity = new Vector2D();
 			}else {
-				
-			}
-		}*/
-		
-		for(Body bo: bs){
-			if(bo.getMass() == 0.00){
-				bo.acceleration = new Vector2D();
-				bo.velocity = new Vector2D();
-			}else{
-				
+				for (int j = 0; j < bs.size(); j++) {
+					Body boj = bs.get(j);
+					if(i!=j){
+						double fij = 0.00;
+						fij = gc * ( ( boi.getMass() * boj.getMass() ) / ( Math.pow(boj.getPosition().distanceTo(boi.getPosition()), 2) ) );
+						
+						Vector2D ijDirection = boj.getPosition().minus(boi.getPosition()); // no estoy muy claro que esto sea asi 
+						ijDirection.scale(fij);
+						
+						boi.setForce(ijDirection);
+					}
+				}
 			}
 		}
 	}
