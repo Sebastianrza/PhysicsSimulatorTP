@@ -7,26 +7,35 @@ import org.json.JSONObject;
 
 public class PhysicsSimulator {
 	
-	protected double time;
+	protected double timeReal;
+	protected double timeActual;
 	protected ForceLaws fl;
 	protected List<Body> listBody;
 	
 	public PhysicsSimulator(Double time, ForceLaws fl) {
 		
 		try {
-			this.time = 0.0;
-			this.fl = fl;
+			this.timeActual = 0.00;
+			
+			if(time > 0 ){
+				this.timeReal = time;
+			}else{
+				throw new IllegalArgumentException("Time error value");
+			}
+			
+			if(fl != null){
+				this.fl = fl;
+			}else{
+				throw new IllegalArgumentException("ForceLaws cant be null");
+			}
 		}catch(IllegalArgumentException e) {
 			System.out.println("Error: "+e.getMessage());
 		}
+		
 	}
 	
 	public double getTime() {
-		return time;
-	}
-
-	public void setTime(double time) {
-		this.time = time;
+		return timeActual;
 	}
 
 	public ForceLaws getFl() {
@@ -53,16 +62,16 @@ public class PhysicsSimulator {
 		}
 		this.fl.apply(listBody);
 		for(Body o: listBody) {
-			o.move(this.time);
+			o.move(this.timeReal);
 		}
-		this.setTime(time+this.getTime());
+		timeActual =+ timeReal;
 	}
 	
 	public void addBody(Body b) {
 		if(this.listBody.contains(b)==false) {
 			this.listBody.add(b);
 		}else {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("body cant no be added");
 		}
 	}
 	
@@ -75,7 +84,7 @@ public class PhysicsSimulator {
 			bo.put(e.getState());
 		}
 		
-		ps.put("time", this.getTime());
+		ps.put("time", this.timeActual);
 		ps.put("bodies", bo );
 		return ps;
 	}
