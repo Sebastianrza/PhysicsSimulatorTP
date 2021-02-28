@@ -50,6 +50,8 @@ public class Main {
 	private static Factory<Body> _bodyFactory;
 	private static Factory<ForceLaws> _forceLawsFactory;
 	private static Factory<StateComparator> _stateComparatorFactory;
+	
+	private static int _steps = 0;
 
 	private static void init() {
 		
@@ -259,16 +261,18 @@ public class Main {
 
 	private static void startBatchMode() throws Exception {
 		PhysicsSimulator ps = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo));
+		//StateComparator sc = new StateComparator();
 		try {
 			InputStream in = new FileInputStream(_inFile);
+			Controller c = new Controller(ps, _bodyFactory);
+			c.loadBodies(in);
+			//c.run(_steps, out, expOut, sc);
+			// TODO complete this method
 		}catch(IOException | IllegalArgumentException ex){
 			System.err.println(ex.getLocalizedMessage());
 			System.exit(0);
 		}
-		Controller c = new Controller(ps, _bodyFactory);
-		//c.loadBodies(in);
-		//c.run(n, out, expOut, cmp);
-		// TODO complete this method
+		
 	}
 
 	private static void start(String[] args) throws Exception {
