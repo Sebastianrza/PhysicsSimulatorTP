@@ -1,13 +1,8 @@
 package simulator.factories;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import simulator.model.Body;
 
 public class BuilderBasedFactory<T> implements Factory<T> {
 
