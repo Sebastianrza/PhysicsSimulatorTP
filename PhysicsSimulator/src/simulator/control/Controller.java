@@ -65,12 +65,11 @@ public class Controller {
 			p.println("{");
 			p.println("\"states\": [");
 	
-		
-			if(n != 0) p.println(", ");
 			for (int i = 0; i < n; i++) {
 				if(cmp.equal(ex, ps.getState())) {
-					ps.advance();
+					this.ps.advance();
 					p.print(ps.getState());
+					if(i!=n-1)p.println(",");
 				}else {
 					throw new Exception("States Diferent " + ps.getState() + " in the time " + ps.getTime());
 				}
