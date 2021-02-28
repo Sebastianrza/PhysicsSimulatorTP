@@ -1,8 +1,10 @@
 package simulator.factories;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import simulator.model.Body;
@@ -17,17 +19,18 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	}
 	@Override
 	public T createInstance(JSONObject info) {
-	/*	ArrayList<Builder<Body>> bodyBuilders = new ArrayList<>();
-		bodyBuilders.add(new BasicBodyBuilder());
-		bodyBuilders.add(new MassLosingBodyBuilder());
-		Factory<Body> bodyFactory = new BuilderBasedFactory<Body>(bodyBuilders);*/
 		return null;
+		
 	}
 
 	@Override
 	public List<JSONObject> getInfo() {
-	
-		return null;
+		
+		List<JSONObject> bu = new ArrayList<JSONObject>();
+		for(int i = 0; i<builders.size(); i++) {
+			bu.add(builders.get(i).getBuilderInfo());
+		}
+		return bu;
 	}
 
 }
