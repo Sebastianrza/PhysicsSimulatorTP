@@ -9,7 +9,7 @@ public class MassEqualStatesBuilder extends Builder<StateComparator>{
 
 
 	public MassEqualStatesBuilder() {
-		super("masseq");
+		super("masseq","Mass equal states");
 		// TODO Auto-generated constructor stub
 	}
 

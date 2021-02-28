@@ -9,7 +9,7 @@ public class EpsilonEqualStatesBuilder  extends Builder<StateComparator> {
 	
 
 	public EpsilonEqualStatesBuilder() {
-		super("epseq");
+		super("epseq", "Epsilon equal states");
 		// TODO Auto-generated constructor stub
 	}
 

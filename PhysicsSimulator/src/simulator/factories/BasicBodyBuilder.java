@@ -10,7 +10,7 @@ public class BasicBodyBuilder extends Builder<Body> {
 	
 
 	public BasicBodyBuilder() {
-		super("basic");
+		super("basic", "basic physical body");
 		// TODO Auto-generated constructor stub
 	}
 

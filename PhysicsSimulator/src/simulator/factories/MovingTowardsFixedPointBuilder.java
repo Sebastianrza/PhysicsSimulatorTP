@@ -10,7 +10,7 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 
 
 	public MovingTowardsFixedPointBuilder() {
-		super("mtcp");
+		super("mtcp", "law of gravity moving towards a fixed point");
 		// TODO Auto-generated constructor stub
 	}
 

@@ -10,7 +10,7 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 
 
 	public MassLosingBodyBuilder() {
-		super("mlb");
+		super("mlb","Mass losing body");
 		// TODO Auto-generated constructor stub
 	}
 
