@@ -2,22 +2,28 @@ package simulator.control;
 
 import org.json.JSONObject;
 
-import simulator.model.ForceLaws;
-import simulator.model.PhysicsSimulator;
-
 public class MassEqualStates implements StateComparator {
-	
-	protected double time;
-	protected ForceLaws fl;
-	protected PhysicsSimulator ps = new PhysicsSimulator(time, fl);
 
 	@Override
 	public boolean equal(JSONObject s1, JSONObject s2) {
 		
-		for(int i = 0; i<ps.getListBody().size(); i++) {
-
+		if(s1.get("time") == s2.get("time")){
+			
+			for (int i=0; i < s1.getJSONArray("bodies").length(); i++) {
+				
+				if(s1.getJSONArray("bodies").getJSONObject(i).get("id") == s2.getJSONArray("bodies").getJSONObject(i).get("id")){
+					if(s1.getJSONArray("bodies").getJSONObject(i).get("mass") == s2.getJSONArray("bodies").getJSONObject(i).get("mass"));
+				}else{
+					return false;
+				}	
+			}
+			
+		}else{
+			return false;
 		}
-				return false;
+		
+		return true;
+				
 	}
 
 }
