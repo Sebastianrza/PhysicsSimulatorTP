@@ -11,8 +11,8 @@ public class MassEqualStates implements StateComparator {
 			
 			for (int i=0; i < s1.getJSONArray("bodies").length(); i++) {
 				
-				if(s1.getJSONArray("bodies").getJSONObject(i).get("id") == s2.getJSONArray("bodies").getJSONObject(i).get("id")){
-					if(s1.getJSONArray("bodies").getJSONObject(i).get("mass") == s2.getJSONArray("bodies").getJSONObject(i).get("mass"));
+				if(s1.getJSONArray("bodies").getJSONObject(i).get("id") == s2.getJSONArray("bodies").getJSONObject(i).get("id") &&
+						s1.getJSONArray("bodies").getJSONObject(i).get("mass") == s2.getJSONArray("bodies").getJSONObject(i).get("mass")){
 				}else{
 					return false;
 				}	
