@@ -8,7 +8,7 @@ import simulator.control.StateComparator;
 public class EpsilonEqualStatesBuilder  extends Builder<StateComparator> {
 	
 
-	public EpsilonEqualStatesBuilder(String typetag) {
+	public EpsilonEqualStatesBuilder() {
 		super("epseq");
 		// TODO Auto-generated constructor stub
 	}

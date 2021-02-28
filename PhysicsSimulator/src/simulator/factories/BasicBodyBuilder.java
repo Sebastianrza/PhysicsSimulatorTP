@@ -9,7 +9,7 @@ public class BasicBodyBuilder extends Builder<Body> {
 
 	
 
-	public BasicBodyBuilder(String typetag) {
+	public BasicBodyBuilder() {
 		super("basic");
 		// TODO Auto-generated constructor stub
 	}

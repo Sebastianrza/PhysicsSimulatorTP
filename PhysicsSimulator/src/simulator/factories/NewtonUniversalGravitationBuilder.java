@@ -7,7 +7,7 @@ import simulator.model.NewtonUniversalGravitation;
 
 public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 	
-	public NewtonUniversalGravitationBuilder(String typetag) {
+	public NewtonUniversalGravitationBuilder() {
 		super("nlug");
 		// TODO Auto-generated constructor stub
 	}

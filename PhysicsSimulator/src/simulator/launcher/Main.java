@@ -16,9 +16,16 @@ import org.json.JSONObject;
 
 import simulator.control.Controller;
 import simulator.control.StateComparator;
+import simulator.factories.BasicBodyBuilder;
 import simulator.factories.Builder;
+import simulator.factories.BuilderBasedFactory;
+import simulator.factories.EpsilonEqualStatesBuilder;
 import simulator.factories.Factory;
+import simulator.factories.MassEqualStatesBuilder;
+import simulator.factories.MassLosingBodyBuilder;
+import simulator.factories.MovingTowardsFixedPointBuilder;
 import simulator.factories.NewtonUniversalGravitationBuilder;
+import simulator.factories.NoForceBuilder;
 import simulator.model.Body;
 import simulator.model.ForceLaws;
 import simulator.model.PhysicsSimulator;
@@ -47,16 +54,23 @@ public class Main {
 	private static void init() {
 		
 		// TODO initialize the bodies factory
-		ArrayList<Builder<Body>> bodyBuilder = new ArrayList<>();
-		//bodyBuilder.add();
-		//bodyBuilder.add();
+		ArrayList<Builder<Body>> bodyBuilders = new ArrayList<>();
+		bodyBuilders.add(new BasicBodyBuilder());
+		bodyBuilders.add(new MassLosingBodyBuilder());
+		_bodyFactory = new BuilderBasedFactory<Body>(bodyBuilders);
 		
 		// TODO initialize the force laws factory
 		ArrayList<Builder<ForceLaws>> forceLawsBuilder = new ArrayList<>();
-		//forceLawsBuilder.add();
-		//forceLawsBuilder.add();
-		//forceLawsBuilder.add();
-		// TODO initialize the state comparator
+		forceLawsBuilder.add(new NewtonUniversalGravitationBuilder());
+		forceLawsBuilder.add(new MovingTowardsFixedPointBuilder());
+		forceLawsBuilder.add(new NoForceBuilder());
+		_forceLawsFactory = new BuilderBasedFactory<ForceLaws>(forceLawsBuilder);
+		//TODO initialize the state comparator
+		ArrayList<Builder<StateComparator>> stateComparatorBuilder = new ArrayList<>();
+		stateComparatorBuilder.add(new MassEqualStatesBuilder());
+		stateComparatorBuilder.add(new EpsilonEqualStatesBuilder());
+		_stateComparatorFactory = new BuilderBasedFactory<StateComparator>(stateComparatorBuilder);
+		
 	}
 
 	private static void parseArgs(String[] args) {

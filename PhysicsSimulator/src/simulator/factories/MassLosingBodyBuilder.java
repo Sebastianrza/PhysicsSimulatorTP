@@ -8,9 +8,8 @@ import simulator.model.MassLossingBody;
 
 public class MassLosingBodyBuilder extends Builder<Body>{
 
-	
 
-	public MassLosingBodyBuilder(String typetag) {
+	public MassLosingBodyBuilder() {
 		super("mlb");
 		// TODO Auto-generated constructor stub
 	}
