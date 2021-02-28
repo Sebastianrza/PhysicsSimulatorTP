@@ -7,11 +7,14 @@ import simulator.model.NewtonUniversalGravitation;
 
 public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 	
-	double cons = 6.67E-11;
-	public NewtonUniversalGravitationBuilder() {
-		
+	public NewtonUniversalGravitationBuilder(String typetag) {
+		super("nlug");
 		// TODO Auto-generated constructor stub
 	}
+
+
+	double cons = 6.67E-11;
+	
 
 	@Override
 	protected ForceLaws createTheInstance(JSONObject data) {

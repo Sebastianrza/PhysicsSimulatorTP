@@ -8,8 +8,9 @@ import simulator.model.MovingTowardsFixedPoint;
 
 public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 
-	public MovingTowardsFixedPointBuilder() {
-		
+
+	public MovingTowardsFixedPointBuilder(String typetag) {
+		super("mtcp");
 		// TODO Auto-generated constructor stub
 	}
 

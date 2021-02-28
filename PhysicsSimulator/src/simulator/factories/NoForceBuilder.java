@@ -7,6 +7,11 @@ import simulator.model.NoForce;
 
 public class NoForceBuilder extends Builder<ForceLaws>{
 
+	public NoForceBuilder(String typetag) {
+		super("nf");
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	protected ForceLaws createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub

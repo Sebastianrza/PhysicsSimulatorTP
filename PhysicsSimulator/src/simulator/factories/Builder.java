@@ -6,8 +6,13 @@ public abstract class Builder<T>{
 
 	protected String typetag;
 	
-	public Builder() {
+	public Builder(String typetag) {
+		if(typetag ==null) {
+			throw new IllegalArgumentException("invalid type: "+typetag);
+		}else {
+			this.typetag = typetag;
 		}
+	}
 	
 	public T createInstance(JSONObject info) {
 		T b = null;

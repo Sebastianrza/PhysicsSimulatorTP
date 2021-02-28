@@ -7,8 +7,10 @@ import simulator.model.Body;
 
 public class BasicBodyBuilder extends Builder<Body> {
 
-	public BasicBodyBuilder() {
-		
+	
+
+	public BasicBodyBuilder(String typetag) {
+		super("basic");
 		// TODO Auto-generated constructor stub
 	}
 
