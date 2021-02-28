@@ -56,20 +56,31 @@ public class Controller {
 		
 	}
 	
-	public void run(int n, OutputStream out, InputStream expOut, StateComparator cmp) {
+	public void run(int n, OutputStream out, InputStream expOut, StateComparator cmp) throws Exception {
 		
-		PrintStream p = new PrintStream(out);
-		p.println("{");
-		p.println("\"states\": [");
-		p.print(ps);
+		if(expOut !=null) {
+			
+			PrintStream p = new PrintStream(out);
+			JSONObject ex = new JSONObject(expOut);
+			p.println("{");
+			p.println("\"states\": [");
+	
 		
-		if(n != 0) p.println(", ");
-		for (int i = 0; i < n; i++) {
-			ps.advance();
-			p.print(ps);
+			if(n != 0) p.println(", ");
+			for (int i = 0; i < n; i++) {
+				if(cmp.equal(ex, ps.getState())) {
+					ps.advance();
+					p.print(ps.getState());
+				}else {
+					throw new Exception("States Diferent " + ps.getState() + " in the time " + ps.getTime());
+				}
+				
+			}
+			p.println("]");
+			p.println("}");
+		
+		}else {
+			throw new IllegalArgumentException("The expOut parameter is null");
 		}
-		p.println("]");
-		p.println("}");
-		
 	}
 }
