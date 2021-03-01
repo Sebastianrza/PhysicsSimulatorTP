@@ -14,7 +14,18 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	}
 	@Override
 	public T createInstance(JSONObject info) {
-		return null;
+		if (info != null) {
+            for (Builder<T> bb : builders) {
+                T o = bb.createInstance(info);
+
+                if (o != null) {
+                    return o;
+                    }
+            }
+        } 
+
+        throw new IllegalArgumentException("Invalid value for createInstance: " + info);
+
 		
 	}
 
