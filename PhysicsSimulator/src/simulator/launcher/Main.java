@@ -1,8 +1,10 @@
 package simulator.launcher;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
@@ -43,6 +45,9 @@ public class Main {
 	//
 	private static Double _dtime = null;
 	private static String _inFile = null;
+	private static String _outFile = null;
+	private static String _expOut = null;
+	private static PrintStream os;
 	private static JSONObject _forceLawsInfo = null;
 	private static JSONObject _stateComparatorInfo = null;
 
@@ -204,6 +209,31 @@ public class Main {
 			throw new ParseException("Invalid delta-time value: " + dt);
 		}
 	}
+	
+	private static void parseOutputOption(CommandLine line) throws ParseException {
+		_outFile = line.getOptionValue("o");
+		try {
+			os = (_outFile == null) ? System.out : new PrintStream(_outFile);
+		} catch (FileNotFoundException e) {
+			throw new ParseException("Invalid output File: " + _outFile);
+
+		}
+	}
+	
+	private static void parseStepsOption(CommandLine line) throws ParseException {
+		String s = line.getOptionValue("s", _stepsDefaultValue.toString());
+		try {
+			_steps = Integer.parseInt(s);
+			assert (_steps > 0);
+		} catch (Exception e) {
+			throw new ParseException("Invalid steps value: " + s);
+		}
+	}
+	
+	private static void parseExOutputOption(CommandLine line) throws ParseException {
+		//_expOut = line.getOptionValue("eo");
+	}
+
 
 	private static JSONObject parseWRTFactory(String v, Factory<?> factory) {
 
@@ -258,6 +288,8 @@ public class Main {
 			throw new ParseException("Invalid state comparator: " + scmp);
 		}
 	}
+	
+	
 
 	private static void startBatchMode() throws Exception {
 		PhysicsSimulator ps = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo));
