@@ -12,7 +12,14 @@ public class EpsilonEqualStatesBuilder  extends Builder<StateComparator> {
 		super("epseq", "Epsilon equal states");
 		// TODO Auto-generated constructor stub
 	}
-
+	protected JSONObject createData() {
+		
+		JSONObject bo = new JSONObject();
+		
+		bo.put("eps", "Epsilon Equal States");
+		return bo;
+		
+	}
 	@Override
 	protected StateComparator createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
@@ -23,12 +30,5 @@ public class EpsilonEqualStatesBuilder  extends Builder<StateComparator> {
 			throw new IllegalArgumentException();
 		}
 	}
-	protected JSONObject createData() {
-		
-		JSONObject bo = new JSONObject();
-		
-		bo.put("eps", "Epsilon Equal States");
-		return bo;
-		
-	}
+	
 }

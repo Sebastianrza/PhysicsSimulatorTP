@@ -7,9 +7,11 @@ import org.json.JSONObject;
 public class BuilderBasedFactory<T> implements Factory<T> {
 
 	private List<Builder<T>> builders;
+	static List<JSONObject> _factoryElements;
 	
 	public  BuilderBasedFactory(List<Builder<T>> builders) {
 		builders = new ArrayList<>(builders);
+		_factoryElements = new ArrayList<JSONObject>();
 		// TODO Auto-generated constructor stub
 	}
 	@Override
@@ -31,14 +33,11 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 
 	@Override
 	public List<JSONObject> getInfo() {
-		
-		List<JSONObject> bu = new ArrayList<JSONObject>();
-		
-		for(Builder<T> b : builders) {
-			bu.add(b.getBuilderInfo());
+		_factoryElements = new ArrayList<JSONObject>();
+		for (Builder<T> b : builders) {
+			_factoryElements.add(b.getBuilderInfo());
 		}
-
-		return bu;
+		return _factoryElements;
 	}
 
 }

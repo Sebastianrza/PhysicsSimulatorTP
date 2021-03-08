@@ -13,7 +13,15 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 		super("mtcp", "law of gravity moving towards a fixed point");
 		// TODO Auto-generated constructor stub
 	}
-
+	protected JSONObject createData() {
+		
+		JSONObject bo = new JSONObject();
+		
+		bo.put("c", "point of origin");
+		bo.put("g", "Gravitation");
+		return bo;
+		
+	}
 	@Override
 	protected ForceLaws createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
@@ -25,14 +33,6 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 		}
 	}
 	
-	protected JSONObject createData() {
-		
-		JSONObject bo = new JSONObject();
-		
-		bo.put("c", "point of origin");
-		bo.put("g", "Gravitation");
-		return bo;
-		
-	}
+	
 
 }

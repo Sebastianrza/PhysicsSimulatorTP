@@ -11,7 +11,10 @@ public class NoForceBuilder extends Builder<ForceLaws>{
 		super("nf", "No force law");
 		// TODO Auto-generated constructor stub
 	}
-
+	protected JSONObject createData() {
+		return super.createData();
+	}
+	
 	@Override
 	protected ForceLaws createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub

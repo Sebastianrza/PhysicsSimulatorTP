@@ -11,7 +11,15 @@ public class BasicBodyBuilder extends Builder<Body> {
 		super("basic", "basic physical body");
 		// TODO Auto-generated constructor stub
 	}
-
+	protected JSONObject createData() {
+		JSONObject ob = new JSONObject();
+		ob.put("id", "Identifier of body");
+		ob.put("pos", "Position in the sim");
+		ob.put("vel", "Instant speed");
+		ob.put("mass", "Mass of body");
+		return ob;
+		
+	}
 	@Override
 	protected Body createTheInstance(JSONObject data) {
 		 
@@ -28,14 +36,6 @@ public class BasicBodyBuilder extends Builder<Body> {
 		}
 	
 	}
-	protected JSONObject createData() {
-		JSONObject ob = new JSONObject();
-		ob.put("id", "Identifier of body");
-		ob.put("pos", "Position in the sim");
-		ob.put("vel", "Instant speed");
-		ob.put("mass", "Mass of body");
-		return ob;
-		
-	}
+	
 
 }

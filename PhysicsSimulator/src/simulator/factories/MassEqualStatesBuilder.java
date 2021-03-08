@@ -12,6 +12,9 @@ public class MassEqualStatesBuilder extends Builder<StateComparator>{
 		super("masseq","Mass equal states");
 		// TODO Auto-generated constructor stub
 	}
+	protected JSONObject createData() {
+		return super.createData();
+	}
 
 	@Override
 	protected StateComparator createTheInstance(JSONObject data) {
@@ -23,5 +26,5 @@ public class MassEqualStatesBuilder extends Builder<StateComparator>{
 			throw new IllegalArgumentException();
 		}
 	}
-
+	
 }

@@ -15,7 +15,14 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 
 	double cons = 6.67E-11;
 	
-
+	protected JSONObject createData() {
+		
+		JSONObject bo = new JSONObject();
+		
+		bo.put("G", "Gravitation");
+		return bo;
+		
+	}
 	@Override
 	protected ForceLaws createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
@@ -26,13 +33,6 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 		}
 	}
 	
-	protected JSONObject createData() {
-		
-		JSONObject bo = new JSONObject();
-		
-		bo.put("G", "Gravitation");
-		return bo;
-		
-	}
+	
 
 }
