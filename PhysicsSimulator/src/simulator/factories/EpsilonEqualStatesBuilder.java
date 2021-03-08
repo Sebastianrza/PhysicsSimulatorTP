@@ -23,4 +23,12 @@ public class EpsilonEqualStatesBuilder  extends Builder<StateComparator> {
 			throw new IllegalArgumentException();
 		}
 	}
+	protected JSONObject createData() {
+		
+		JSONObject bo = new JSONObject();
+		
+		bo.put("eps", "Epsilon Equal States");
+		return bo;
+		
+	}
 }

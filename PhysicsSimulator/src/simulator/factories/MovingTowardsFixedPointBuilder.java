@@ -24,5 +24,15 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 			throw new IllegalArgumentException();
 		}
 	}
+	
+	protected JSONObject createData() {
+		
+		JSONObject bo = new JSONObject();
+		
+		bo.put("c", "point of origin");
+		bo.put("g", "Gravitation");
+		return bo;
+		
+	}
 
 }

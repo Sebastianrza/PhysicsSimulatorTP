@@ -34,4 +34,16 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 		}
 
 	}
+	
+	protected JSONObject createData() {
+		JSONObject bo = new JSONObject();
+		bo.put("id", "Identifier of body");
+		bo.put("pos", "Position in the sim");
+		bo.put("vel", "Instant speed");
+		bo.put("mass", "Mass of body");
+		bo.put("freq", "Mass losing frecuency");
+		bo.put("factor", "Mass losing factor");
+		
+		return bo;
+	}
 }

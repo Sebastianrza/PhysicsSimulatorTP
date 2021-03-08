@@ -2,6 +2,8 @@ package simulator.model;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import simulator.misc.Vector2D;
 
 public class MovingTowardsFixedPoint implements ForceLaws {
@@ -22,5 +24,7 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 			bo.setAcceleration(bo.getPosition().direction().scale(-gc));
 		}
 	}
+	
+	
 
 }

@@ -26,17 +26,19 @@ public abstract class Builder<T>{
 		return b;
 		
 	}
-	
+	protected JSONObject createData() {
+		return new JSONObject();
+	}
 	public JSONObject getBuilderInfo() {
 		
 		JSONObject info = new JSONObject();
 		info.put("type", this.typetag);
 		info.put("data", createData());
+		info.put("desc", this.desc);
+		
 		return info;
 		
 	}
-	public JSONObject createData() {
-		return new JSONObject();
-	}
+	
 	protected abstract T createTheInstance(JSONObject data);
 }

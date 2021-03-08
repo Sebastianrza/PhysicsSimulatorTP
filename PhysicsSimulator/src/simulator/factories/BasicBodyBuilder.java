@@ -7,8 +7,6 @@ import simulator.model.Body;
 
 public class BasicBodyBuilder extends Builder<Body> {
 
-	
-
 	public BasicBodyBuilder() {
 		super("basic", "basic physical body");
 		// TODO Auto-generated constructor stub
@@ -29,6 +27,15 @@ public class BasicBodyBuilder extends Builder<Body> {
 			throw new IllegalArgumentException();
 		}
 	
+	}
+	protected JSONObject createData() {
+		JSONObject ob = new JSONObject();
+		ob.put("id", "Identifier of body");
+		ob.put("pos", "Position in the sim");
+		ob.put("vel", "Instant speed");
+		ob.put("mass", "Mass of body");
+		return ob;
+		
 	}
 
 }

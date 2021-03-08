@@ -25,5 +25,14 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 			throw new IllegalArgumentException();
 		}
 	}
+	
+	protected JSONObject createData() {
+		
+		JSONObject bo = new JSONObject();
+		
+		bo.put("G", "Gravitation");
+		return bo;
+		
+	}
 
 }
