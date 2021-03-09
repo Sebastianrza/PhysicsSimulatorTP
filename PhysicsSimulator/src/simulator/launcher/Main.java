@@ -1,11 +1,15 @@
 package simulator.launcher;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -231,7 +235,8 @@ public class Main {
 	}
 	
 	private static void parseExOutputOption(CommandLine line) throws ParseException {
-		//_expOut = line.getOptionValue("eo");
+	
+		_expOut = line.getOptionValue("eo");
 	}
 
 
@@ -282,6 +287,7 @@ public class Main {
 	}
 
 	private static void parseStateComparatorOption(CommandLine line) throws ParseException {
+		
 		String scmp = line.getOptionValue("cmp", _stateComparatorDefaultValue);
 		_stateComparatorInfo = parseWRTFactory(scmp, _stateComparatorFactory);
 		if (_stateComparatorInfo == null) {
@@ -292,20 +298,24 @@ public class Main {
 	
 
 	private static void startBatchMode() throws Exception {
-		PhysicsSimulator ps = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo));
-		//StateComparator sc = new StateComparator();
-		try {
-			InputStream in = new FileInputStream(_inFile);
-			Controller c = new Controller(ps, _bodyFactory);
-			c.loadBodies(in);
-			//c.run(_steps, out, expOut, sc);
-			// TODO complete this method
-		}catch(IOException | IllegalArgumentException ex){
-			System.err.println(ex.getLocalizedMessage());
-			System.exit(0);
-		}
-		
-	}
+        PhysicsSimulator ps = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo));
+        StateComparator sc = _stateComparatorFactory.createInstance(_stateComparatorInfo);
+        try {
+            InputStream in = new FileInputStream(_inFile);
+            InputStream eo = new FileInputStream(_expOut);
+            OutputStream out = _outFile == null ? System.out : new FileOutputStream(new File(_outFile));
+            Controller c = new Controller(ps, _bodyFactory);
+
+            c.loadBodies(in);
+            c.run(_steps, out, eo, sc);
+
+            // TODO complete this method
+        }catch(IOException | IllegalArgumentException ex){
+            System.err.println(ex.getLocalizedMessage());
+            System.exit(0);
+        }
+
+    }
 
 	private static void start(String[] args) throws Exception {
 		parseArgs(args);
