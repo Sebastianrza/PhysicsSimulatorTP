@@ -10,7 +10,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	static List<JSONObject> _factoryElements;
 	
 	public  BuilderBasedFactory(List<Builder<T>> builders) {
-		builders = new ArrayList<>(builders);
+		this.builders = new ArrayList<>(builders);
 		_factoryElements = new ArrayList<JSONObject>();
 		// TODO Auto-generated constructor stub
 	}
