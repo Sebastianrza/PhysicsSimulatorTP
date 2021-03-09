@@ -17,14 +17,13 @@ public abstract class Builder<T>{
 	
 	public T createInstance(JSONObject info) {
 		T b = null;
-		if(info != null && typetag.equals(info.getString("type"))) {
+		if(info != null && info.getString("type").equals(typetag)) {
 			
 			b = createInstance(info.getJSONObject("data"));
+			return b;
 		}else {
 			throw new IllegalArgumentException();
 		}
-		return b;
-		
 	}
 	protected JSONObject createData() {
 		return new JSONObject();
