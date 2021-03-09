@@ -17,7 +17,7 @@ public abstract class Builder<T>{
 	
 	public T createInstance(JSONObject info) {
 		T b = null;
-		if(typetag != null && typetag.equals(info.getString("type"))) {
+		if(info != null && typetag.equals(info.getString("type"))) {
 			
 			b = createInstance(info.getJSONObject("data"));
 		}else {
