@@ -29,9 +29,9 @@ public abstract class Builder<T>{
 	public JSONObject getBuilderInfo() {
 		
 		JSONObject info = new JSONObject();
-		info.put("type", this.typetag);
+		info.put("type", typetag);
 		info.put("data", createData());
-		info.put("desc", this.desc);
+		info.put("desc", desc);
 		
 		return info;
 		
