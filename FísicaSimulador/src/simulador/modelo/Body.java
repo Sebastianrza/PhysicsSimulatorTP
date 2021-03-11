@@ -88,7 +88,7 @@ public class Body {
 		JSONObject bo = new JSONObject();
 		bo.put("id", this.id);
 		bo.put("m", this.mass);
-		bo.put("p", this.position);
+		bo.put("p", getPosition().asJSONArray());
 		bo.put("v", this.velocity);
 		bo.put("f", this.force);
 		
