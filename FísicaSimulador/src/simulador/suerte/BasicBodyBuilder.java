@@ -25,7 +25,7 @@ public class BasicBodyBuilder extends Builder<Body> {
 		 
 		try {
 		 String id = data.getString("id");
-		 Vector2D position = (Vector2D) data.get("p");
+		 JSONArray position = data.getJSONArray("p");
 		 Vector2D velocity = (Vector2D) data.get("v");; 
 		 Double mass = data.getDouble("mass");
 		 
