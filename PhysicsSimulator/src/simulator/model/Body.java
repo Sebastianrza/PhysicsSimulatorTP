@@ -90,7 +90,7 @@ public class Body {
 		bo.put("m", this.mass);
 		bo.put("p", getPosition().asJSONArray());//
 		bo.put("v", getVelocity().asJSONArray());
-		bo.put("f", this.force);
+		bo.put("f", getForce().asJSONArray());
 		
 		
 		return bo;
