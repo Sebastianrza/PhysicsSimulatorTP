@@ -104,7 +104,7 @@ public class Main {
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
 			parseExOutputOption(line);
-			
+			parseOutputOption(line);
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
 			//
@@ -305,7 +305,7 @@ public class Main {
             InputStream in = new FileInputStream(_inFile);
             
             InputStream eo = (_expOut != null) ? new FileInputStream(_expOut) : null;
-            
+
             Controller c = new Controller(ps, _bodyFactory);
             
             c.loadBodies(in);
