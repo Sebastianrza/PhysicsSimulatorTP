@@ -47,7 +47,9 @@ public class Controller {
 			JSONArray bodies = jsonInput.getJSONArray("bodies");
 			
 			for(int i = 0; i < bodies.length(); i++) {
+				
 				ps.addBody(fb.createInstance(bodies.getJSONObject(i)));
+				
 			}
 			
 		}catch(JSONException ex) {
@@ -58,13 +60,14 @@ public class Controller {
 	
 	public void run(int n, OutputStream out, InputStream expOut, StateComparator cmp) throws Exception {
 		
+		PrintStream p = new PrintStream(out);
+		p.println("{");
+		p.println("\"states\": [");
+		
 		if(expOut !=null) {
-			
-			PrintStream p = new PrintStream(out);
-			JSONObject ex = new JSONObject(expOut);
-			p.println("{");
-			p.println("\"states\": [");
 	
+			JSONObject ex = new JSONObject(expOut);
+			
 			for (int i = 0; i < n; i++) {
 				if(cmp.equal(ex, ps.getState())) {
 					this.ps.advance();
@@ -75,11 +78,17 @@ public class Controller {
 				}
 				
 			}
-			p.println("]");
-			p.println("}");
 		
 		}else {
-			throw new IllegalArgumentException("The expOut parameter is null");
+			
+			for (int i = 0; i < n; i++) {
+					this.ps.advance();
+					p.print(ps.getState());
+					if(i!=n-1)p.println(",");
+			}
 		}
+		
+		p.println("]");
+		p.println("}");
 	}
 }

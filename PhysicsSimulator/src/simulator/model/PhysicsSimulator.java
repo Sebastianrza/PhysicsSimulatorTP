@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -15,6 +16,8 @@ public class PhysicsSimulator {
 	public PhysicsSimulator(Double time, ForceLaws fl) {
 		
 		try {
+			this.listBody = new ArrayList<>();
+			
 			this.timeActual = 0.00;
 			
 			if(time > 0 ){

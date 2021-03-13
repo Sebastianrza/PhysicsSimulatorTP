@@ -103,7 +103,8 @@ public class Main {
 			parseDeltaTimeOption(line);
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
-
+			parseExOutputOption(line);
+			
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
 			//
@@ -226,6 +227,7 @@ public class Main {
 	
 	private static void parseStepsOption(CommandLine line) throws ParseException {
 		String s = line.getOptionValue("s", _stepsDefaultValue.toString());
+
 		try {
 			_steps = Integer.parseInt(s);
 			assert (_steps > 0);
@@ -235,7 +237,6 @@ public class Main {
 	}
 	
 	private static void parseExOutputOption(CommandLine line) throws ParseException {
-	
 		_expOut = line.getOptionValue("eo");
 	}
 
@@ -279,7 +280,7 @@ public class Main {
 	}
 
 	private static void parseForceLawsOption(CommandLine line) throws ParseException {
-		String fl = line.getOptionValue("gl", _forceLawsDefaultValue);
+		String fl = line.getOptionValue("fl", _forceLawsDefaultValue);
 		_forceLawsInfo = parseWRTFactory(fl, _forceLawsFactory);
 		if (_forceLawsInfo == null) {
 			throw new ParseException("Invalid force laws: " + fl);
@@ -302,12 +303,14 @@ public class Main {
         StateComparator sc = _stateComparatorFactory.createInstance(_stateComparatorInfo);
         try {
             InputStream in = new FileInputStream(_inFile);
-            InputStream eo = new FileInputStream(_expOut);
-            OutputStream out = _outFile == null ? System.out : new FileOutputStream(new File(_outFile));
+            
+            InputStream eo = (_expOut != null) ? new FileInputStream(_expOut) : null;
+            
             Controller c = new Controller(ps, _bodyFactory);
-
+            
             c.loadBodies(in);
-            c.run(_steps, out, eo, sc);
+            
+            c.run(_steps, os, eo, sc);
 
             // TODO complete this method
         }catch(IOException | IllegalArgumentException ex){
