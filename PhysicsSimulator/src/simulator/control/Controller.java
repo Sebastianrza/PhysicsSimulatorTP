@@ -68,7 +68,7 @@ public class Controller {
 			JSONObject ex = new JSONObject(expOut);
 			
 			for (int i = 0; i < n; i++) {
-				if(cmp.equal(ex, ps.getState())) {
+				if(cmp.equal(ps.getState(),ex)) {
 					
 					this.ps.advance();
 					p.print(ps.getState());

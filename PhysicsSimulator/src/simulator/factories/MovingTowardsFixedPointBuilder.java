@@ -27,7 +27,8 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 		// TODO Auto-generated method stub
 		try {
 		Vector2D mtfp = new Vector2D();
-		return new MovingTowardsFixedPoint(mtfp, 9.81);
+		double g = data.has("g") ? data.getDouble("g") : 9.81;
+		return new MovingTowardsFixedPoint(mtfp, g);
 		}catch(Exception e){
 			throw new IllegalArgumentException();
 		}

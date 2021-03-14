@@ -24,7 +24,8 @@ public class EpsilonEqualStatesBuilder  extends Builder<StateComparator> {
 	protected StateComparator createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
 		try {
-		return new EpsilonEqualStates(0.0);
+		double eps = data.has("eps") ? data.getDouble("eps") : 0.0;
+		return new EpsilonEqualStates(eps);
 	
 		}catch(Exception e){
 			throw new IllegalArgumentException();
