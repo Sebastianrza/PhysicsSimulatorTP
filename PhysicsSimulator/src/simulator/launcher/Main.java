@@ -47,7 +47,7 @@ public class Main {
 
 	// some attributes to stores values corresponding to command-line parameters
 	//
-	private static Double _dtime = null;
+	private static Double _dtime = 2500.00;
 	private static String _inFile = null;
 	private static String _outFile = null;
 	private static String _expOut = null;

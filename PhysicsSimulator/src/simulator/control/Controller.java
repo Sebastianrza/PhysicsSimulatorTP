@@ -59,7 +59,6 @@ public class Controller {
 	}
 	
 	public void run(int n, OutputStream out, InputStream expOut, StateComparator cmp) throws Exception {
-		
 		PrintStream p = new PrintStream(out);
 		p.println("{");
 		p.println("\"states\": [");
@@ -82,9 +81,9 @@ public class Controller {
 		
 		}else {
 			for (int i = 0; i < n; i++) {
+					p.println(ps.getState());
 					this.ps.advance();
-					p.print(ps.getState());
-					if(i!=n-1)p.println(",");
+					if(i!=n-1)p.print(",");
 			}
 		}
 		

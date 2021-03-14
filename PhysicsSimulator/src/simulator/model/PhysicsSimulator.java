@@ -63,11 +63,15 @@ public class PhysicsSimulator {
 		for(Body o: listBody) {
 			o.resetForce();
 		}
+		
 		this.fl.apply(listBody);
+		
 		for(Body o: listBody) {
 			o.move(this.timeReal);
 		}
-		timeActual =+ timeReal;
+		
+		timeActual = timeActual + timeReal;
+		
 	}
 	
 	public void addBody(Body b) {
