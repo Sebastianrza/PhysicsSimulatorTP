@@ -70,6 +70,7 @@ public class Controller {
 			
 			for (int i = 0; i < n; i++) {
 				if(cmp.equal(ex, ps.getState())) {
+					
 					this.ps.advance();
 					p.print(ps.getState());
 					if(i!=n-1)p.println(",");
@@ -80,7 +81,6 @@ public class Controller {
 			}
 		
 		}else {
-			
 			for (int i = 0; i < n; i++) {
 					this.ps.advance();
 					p.print(ps.getState());

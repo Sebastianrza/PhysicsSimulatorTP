@@ -51,7 +51,7 @@ public class Main {
 	private static String _inFile = null;
 	private static String _outFile = null;
 	private static String _expOut = null;
-	private static PrintStream os;
+	private static PrintStream os = null;
 	private static JSONObject _forceLawsInfo = null;
 	private static JSONObject _stateComparatorInfo = null;
 
@@ -105,6 +105,7 @@ public class Main {
 			parseStateComparatorOption(line);
 			parseExOutputOption(line);
 			parseOutputOption(line);
+			parseStepsOption(line);
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
 			//
