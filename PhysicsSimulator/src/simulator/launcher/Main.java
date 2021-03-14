@@ -103,9 +103,10 @@ public class Main {
 			parseDeltaTimeOption(line);
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
-			parseExOutputOption(line);
+			
 			parseOutputOption(line);
 			parseStepsOption(line);
+			parseExOutputOption(line);
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
 			//
@@ -304,9 +305,7 @@ public class Main {
         StateComparator sc = _stateComparatorFactory.createInstance(_stateComparatorInfo);
         try {
             InputStream in = new FileInputStream(_inFile);
-            
             InputStream eo = (_expOut != null) ? new FileInputStream(_expOut) : null;
-
             Controller c = new Controller(ps, _bodyFactory);
             
             c.loadBodies(in);

@@ -64,14 +64,16 @@ public class Controller {
 		p.println("\"states\": [");
 		
 		if(expOut !=null) {
-	
-			JSONObject ex = new JSONObject(expOut);
+			
+			JSONObject ex = new JSONObject(new JSONTokener(expOut));
+			
 			
 			for (int i = 0; i < n; i++) {
 				if(cmp.equal(ps.getState(),ex)) {
 					
-					this.ps.advance();
 					p.print(ps.getState());
+					this.ps.advance();
+					
 					if(i!=n-1)p.println(",");
 				}else {
 					throw new Exception("States Diferent " + ps.getState() + " in the time " + ps.getTime());
