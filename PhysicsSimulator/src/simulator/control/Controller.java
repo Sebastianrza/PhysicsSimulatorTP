@@ -66,10 +66,9 @@ public class Controller {
 		if(expOut !=null) {
 			
 			JSONObject ex = new JSONObject(new JSONTokener(expOut));
-			
-			
+				
 			for (int i = 0; i < n; i++) {
-				if(cmp.equal(ps.getState(),ex)) {
+				if(cmp.equal(ps.getState(),ex.getJSONArray("states").getJSONObject(i))) {
 					
 					p.print(ps.getState());
 					this.ps.advance();
