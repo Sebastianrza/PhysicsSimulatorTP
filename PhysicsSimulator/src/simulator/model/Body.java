@@ -65,7 +65,7 @@ public class Body {
 	//Metodos
 	
 	void addForce(Vector2D f) {
-		this.force.plus(f);
+		this.force = this.force.plus(f);
 	}
 	void resetForce() {
 		this.force = new Vector2D();

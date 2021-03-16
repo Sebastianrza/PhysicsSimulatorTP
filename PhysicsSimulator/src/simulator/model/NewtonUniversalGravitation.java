@@ -17,28 +17,42 @@ public class NewtonUniversalGravitation implements ForceLaws{
 	public void apply(List<Body> bs) {
 		// TODO Auto-generated method stub
 		
-		for (int i = 0; i < bs.size(); i++) { 
-			Body boi = bs.get(i);
-			
-			if(boi.getMass() == 0.0) {
-				boi.acceleration = new Vector2D();
-				boi.velocity = new Vector2D();
-				
-			}else {
-				for (int j = 0; j < bs.size(); j++) {
-					Body boj = bs.get(j);
-					if(i!=j){
-						double fij = 0.00;
-						fij = gc * ( ( boi.getMass() * boj.getMass() ) / ( Math.pow(boj.getPosition().distanceTo(boi.getPosition()), 2) ) );
-						
-						Vector2D ijDirection = boj.getPosition().minus(boi.getPosition()); // no estoy muy claro que esto sea asi 
-						ijDirection.scale(fij);
-						
-						boi.setForce(ijDirection);
-					}
+		for (Body b : bs) { 
+			for(Body bo : bs){
+				if(!b.equals(bo)){
+					fij = 0.00;
+					
+					fij = gc * (b.mass * bo.mass);
+					fij = fij / (Math.pow((bo.position.distanceTo(b.position)),2));
+					
+					Vector2D Dforce = bo.position.minus(b.position);
+					b.addForce(Dforce.scale(fij));
+					
 				}
 			}
 		}
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+/*for (int j = 0; j < bs.size(); j++) {
+	Body boj = bs.get(j);
+	if(i!=j){
+		double fij = 0.00;
+		fij = gc * ( ( boi.getMass() * boj.getMass() ) / ( Math.pow(boj.getPosition().distanceTo(boi.getPosition()), 2) ) );
+		
+		Vector2D ijDirection = boj.getPosition().minus(boi.getPosition()); // no estoy muy claro que esto sea asi 
+		ijDirection.scale(fij);
+		
+		boi.setForce(ijDirection);
+	}
+}*/
