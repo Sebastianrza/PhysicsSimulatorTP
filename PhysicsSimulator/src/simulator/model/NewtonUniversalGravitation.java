@@ -19,15 +19,20 @@ public class NewtonUniversalGravitation implements ForceLaws{
 		
 		for (Body b : bs) { 
 			for(Body bo : bs){
-				if(!b.equals(bo)){
-					fij = 0.00;
-					
-					fij = gc * (b.mass * bo.mass);
-					fij = fij / (Math.pow((bo.position.distanceTo(b.position)),2));
-					
-					Vector2D Dforce = bo.position.minus(b.position);
-					b.addForce(Dforce.scale(fij));
-					
+				if(b.mass == 0.0) {
+					b.acceleration = new Vector2D();
+					b.velocity = new Vector2D();
+				}else {
+					if(!b.equals(bo)){
+						fij = 0.00;
+						
+						fij = gc * (b.mass * bo.mass);
+						fij = fij / (Math.pow((bo.position.distanceTo(b.position)),2));
+						
+						Vector2D Dforce = bo.position.minus(b.position);
+						b.addForce(Dforce.scale(fij));
+						
+					}
 				}
 			}
 		}
