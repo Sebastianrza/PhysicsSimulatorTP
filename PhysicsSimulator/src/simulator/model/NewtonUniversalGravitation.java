@@ -24,19 +24,21 @@ public class NewtonUniversalGravitation implements ForceLaws{
 					b.velocity = new Vector2D();
 				}else {
 					if(!b.equals(bo)){
-						fij = 0.00;
-						
-						fij = gc * (b.mass * bo.mass);
-						fij = fij / (Math.pow((bo.position.distanceTo(b.position)),2));
-						
-						Vector2D Dforce = bo.position.minus(b.position);
-						b.addForce(Dforce.scale(fij));
+
+						b.addForce(force(b,bo));
 						
 					}
 				}
 			}
 		}
 	}
+	
+	private Vector2D force(Body a, Body b) {
+		    Vector2D delta = b.getPosition().minus(a.getPosition());
+		    double dist = delta.magnitude();
+		    double magnitude = dist>0 ? (gc * a.getMass() * b.getMass()) / (dist * dist) : 0.0;
+		    return delta.direction().scale(magnitude);
+		   }
 
 }
 
