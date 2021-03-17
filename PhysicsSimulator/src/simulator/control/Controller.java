@@ -67,13 +67,13 @@ public class Controller {
 			
 			JSONObject ex = new JSONObject(new JSONTokener(expOut));
 				
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i <= n; i++) {
 				if(cmp.equal(ps.getState(),ex.getJSONArray("states").getJSONObject(i))) {
 					
 					p.print(ps.getState());
 					this.ps.advance();
 					
-					if(i!=n-1)p.println(",");
+					if(i!=n)p.println(",");
 				}else {
 					throw new Exception("States Diferent " + ps.getState() + " in the time " + ps.getTime());
 				}
@@ -81,10 +81,10 @@ public class Controller {
 			}
 		
 		}else {
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i <= n; i++) {
 					p.println(ps.getState());
 					this.ps.advance();
-					if(i!=n-1)p.print(",");
+					if(i!=n)p.print(",");
 			}
 		}
 		
