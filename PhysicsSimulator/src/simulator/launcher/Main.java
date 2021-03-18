@@ -301,10 +301,21 @@ public class Main {
 
 	private static void parseStateComparatorOption(CommandLine line) throws ParseException {
 		
-		String scmp = line.getOptionValue("cmp", _stateComparatorDefaultValue);
+		String scmp = line.getOptionValue("cmp");
+			
+		if(scmp != _stateComparatorDefaultValue) {
+			for(JSONObject sc: _stateComparatorFactory.getInfo()) {
+				if(scmp.equals(sc.get("data"))) {
+					_stateComparatorInfo = sc;
+					break;
+				}
+			}
+		}else {
 		_stateComparatorInfo = parseWRTFactory(scmp, _stateComparatorFactory);
+		}
 		if (_stateComparatorInfo == null) {
 			throw new ParseException("Invalid state comparator: " + scmp);
+			
 		}
 	}
 	
