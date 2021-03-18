@@ -1,12 +1,9 @@
 package simulator.launcher;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -282,12 +279,25 @@ public class Main {
 	}
 
 	private static void parseForceLawsOption(CommandLine line) throws ParseException {
-		String fl = line.getOptionValue("fl", _forceLawsDefaultValue);
-		_forceLawsInfo = parseWRTFactory(fl, _forceLawsFactory);
-		if (_forceLawsInfo == null) {
-			throw new ParseException("Invalid force laws: " + fl);
+		if (_forceLawsFactory == null)
+			return;
+
+		String fl = line.getOptionValue("gl");
+		if (fl != null) {
+			for (JSONObject fe : _forceLawsFactory.getInfo()) {
+				if (fl.equals(fe.getString("type"))) {
+					_forceLawsInfo  = fe;
+					break;
+				}
+			}
+			if (_forceLawsFactory == null) {
+				throw new ParseException("Invalid force laws: " + fl);
+			}
+		} else {
+			_forceLawsInfo  = _forceLawsFactory.getInfo().get(0);
 		}
 	}
+	
 
 	private static void parseStateComparatorOption(CommandLine line) throws ParseException {
 		
