@@ -282,7 +282,7 @@ public class Main {
 		if (_forceLawsFactory == null)
 			return;
 
-		String fl = line.getOptionValue("gl");
+		String fl = line.getOptionValue("fl");
 		if (fl != null) {
 			for (JSONObject fe : _forceLawsFactory.getInfo()) {
 				if (fl.equals(fe.getString("type"))) {
@@ -305,7 +305,7 @@ public class Main {
 			
 		if(scmp != _stateComparatorDefaultValue) {
 			for(JSONObject sc: _stateComparatorFactory.getInfo()) {
-				if(scmp.equals(sc.get("data"))) {
+				if(scmp.equals(sc.get("type"))) {
 					_stateComparatorInfo = sc;
 					break;
 				}
