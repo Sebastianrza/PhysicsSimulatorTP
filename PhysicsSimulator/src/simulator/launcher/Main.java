@@ -279,48 +279,21 @@ public class Main {
 	}
 
 	private static void parseForceLawsOption(CommandLine line) throws ParseException {
-		if (_forceLawsFactory == null)
-			return;
-
-		String fl = line.getOptionValue("fl");
-		if (fl != null) {
-			for (JSONObject fe : _forceLawsFactory.getInfo()) {
-				if (fl.equals(fe.getString("type"))) {
-					_forceLawsInfo  = fe;
-					break;
-				}
-			}
-			if (_forceLawsFactory == null) {
-				throw new ParseException("Invalid force laws: " + fl);
-			}
-		} else {
-			_forceLawsInfo  = _forceLawsFactory.getInfo().get(0);
-		}
-	}
-	
-
+			String fl = line.getOptionValue("fl", _forceLawsDefaultValue);
+	        _forceLawsInfo = parseWRTFactory(fl, _forceLawsFactory);
+	        if (_forceLawsInfo == null) {
+	            throw new ParseException("Invalid force laws: " + fl);
+	        }
+	    }
 	private static void parseStateComparatorOption(CommandLine line) throws ParseException {
 		
-		String scmp = line.getOptionValue("cmp");
-			
-		if(scmp != _stateComparatorDefaultValue) {
-			for(JSONObject sc: _stateComparatorFactory.getInfo()) {
-				if(scmp.equals(sc.get("type"))) {
-					_stateComparatorInfo = sc;
-					break;
-				}
-			}
-		}else {
+		String scmp = line.getOptionValue("cmp", _stateComparatorDefaultValue);
 		_stateComparatorInfo = parseWRTFactory(scmp, _stateComparatorFactory);
-		}
 		if (_stateComparatorInfo == null) {
 			throw new ParseException("Invalid state comparator: " + scmp);
-			
 		}
 	}
 	
-	
-
 	private static void startBatchMode() throws Exception {
         PhysicsSimulator ps = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo));
         StateComparator sc = _stateComparatorFactory.createInstance(_stateComparatorInfo);

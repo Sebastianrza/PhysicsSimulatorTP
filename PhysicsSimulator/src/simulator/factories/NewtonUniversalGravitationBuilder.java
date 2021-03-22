@@ -26,11 +26,10 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 	@Override
 	protected ForceLaws createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
-		try {
-		return new NewtonUniversalGravitation(cons);
-		}catch(Exception e){
-			throw new IllegalArgumentException();
+		if(!data.has("G")) {
+			data.put("G", cons);
 		}
+		return new NewtonUniversalGravitation(data.getDouble("G"));
 	}
 	
 	
