@@ -39,27 +39,12 @@ public class NewtonUniversalGravitation implements ForceLaws{
 		    double magnitude = dist>0 ? (gc * a.getMass() * b.getMass()) / (dist * dist) : 0.0;
 		    return delta.direction().scale(magnitude);
 		   }
+	public String toString() {
+		return "Newton's Universal Gravitation";
+	}
 
 }
 
 
 
 
-
-
-
-
-
-
-/*for (int j = 0; j < bs.size(); j++) {
-	Body boj = bs.get(j);
-	if(i!=j){
-		double fij = 0.00;
-		fij = gc * ( ( boi.getMass() * boj.getMass() ) / ( Math.pow(boj.getPosition().distanceTo(boi.getPosition()), 2) ) );
-		
-		Vector2D ijDirection = boj.getPosition().minus(boi.getPosition()); // no estoy muy claro que esto sea asi 
-		ijDirection.scale(fij);
-		
-		boi.setForce(ijDirection);
-	}
-}*/
