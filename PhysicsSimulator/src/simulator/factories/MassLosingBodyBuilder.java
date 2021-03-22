@@ -31,8 +31,8 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 		if(!data.isEmpty()) {
 		
 		String id = data.getString("id");
-		Vector2D position = (Vector2D) data.get("p");
-		Vector2D velocity = (Vector2D) data.get("v");
+		Vector2D position = new Vector2D (firstDouble(data.get("p").toString()), seconDouble(data.get("p").toString())); 
+		Vector2D velocity = new Vector2D (firstDouble(data.get("v").toString()), seconDouble(data.get("v").toString())); ;
 		double lossFactor = data.getDouble("factor");
 		double lossFrequency = data.getDouble("freq");
 		double mass = data.getDouble("m");
@@ -43,6 +43,13 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 		}else {
 			throw new IllegalArgumentException();
 		}
+
+	}
+	private double firstDouble (String s){
+		return Double.parseDouble(s.substring(1, (s.indexOf(','))));
+	}
+	private double seconDouble (String s){
+		return Double.parseDouble(s.substring((s.indexOf(','))+1, s.length() -1));
 
 	}
 	
