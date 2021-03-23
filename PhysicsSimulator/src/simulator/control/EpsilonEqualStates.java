@@ -26,17 +26,17 @@ public class EpsilonEqualStates implements StateComparator{
 					try{
 					if(Math.abs(boS1.getDouble("m") - boS2.getDouble("m")) <= eps){
 						
-						Vector2D pS1 = new Vector2D (firstDouble(boS1.get("p").toString()), seconDouble(boS1.get("p").toString()));
-						Vector2D pS2 = new Vector2D (firstDouble(boS2.get("p").toString()), seconDouble(boS2.get("p").toString()));
+						Vector2D pS1 = new Vector2D (boS1.getJSONArray("p").getDouble(0), boS1.getJSONArray("p").getDouble(1));
+						Vector2D pS2 = new Vector2D (boS2.getJSONArray("p").getDouble(0), boS2.getJSONArray("p").getDouble(1));
 	
 						if(pS1.distanceTo(pS2) <= eps){
-							Vector2D vS1 = new Vector2D (firstDouble(boS1.get("v").toString()), seconDouble(boS1.get("v").toString()));;
-							Vector2D vS2 = new Vector2D (firstDouble(boS2.get("v").toString()), seconDouble(boS2.get("v").toString()));
-							
+							Vector2D vS1 = new Vector2D (boS1.getJSONArray("v").getDouble(0), boS1.getJSONArray("v").getDouble(1));
+							Vector2D vS2 = new Vector2D (boS2.getJSONArray("v").getDouble(0), boS2.getJSONArray("v").getDouble(1));
+		
 							if(vS1.distanceTo(vS2) <= eps){
-								Vector2D fS1 = new Vector2D (firstDouble(boS1.get("f").toString()), seconDouble(boS1.get("f").toString()));
-								Vector2D fS2 = new Vector2D (firstDouble(boS2.get("f").toString()), seconDouble(boS2.get("f").toString()));
-								
+								Vector2D fS1 = new Vector2D (boS1.getJSONArray("f").getDouble(0), boS1.getJSONArray("f").getDouble(1));
+								Vector2D fS2 = new Vector2D (boS2.getJSONArray("f").getDouble(0), boS2.getJSONArray("f").getDouble(1));
+			
 								if(fS1.distanceTo(fS2) <= eps){
 									
 								}else{
@@ -64,15 +64,6 @@ public class EpsilonEqualStates implements StateComparator{
 		}
 		
 		return true;
-	}
-	
-	
-	private double firstDouble (String s){
-		return Double.parseDouble(s.substring(1, (s.indexOf(','))));
-	}
-	private double seconDouble (String s){
-		return Double.parseDouble(s.substring((s.indexOf(','))+1, s.length() -1));
-
 	}
 
 }
