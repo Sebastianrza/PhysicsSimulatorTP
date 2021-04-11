@@ -1,8 +1,10 @@
 package simulator.control;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,16 +13,20 @@ import org.json.JSONTokener;
 
 import simulator.factories.Factory;
 import simulator.model.Body;
+import simulator.model.ForceLaws;
 import simulator.model.PhysicsSimulator;
+import simulator.model.SimulatorObserver;
 
 public class Controller {
 	
 	protected PhysicsSimulator ps;
 	protected Factory<Body> fb;
+	protected Factory<ForceLaws> fl;
 	
-	public Controller(PhysicsSimulator ps, Factory<Body> fb) {
+	public Controller(PhysicsSimulator ps, Factory<Body> fb, Factory<ForceLaws> fl ) {
 		this.fb=fb;
 		this.ps = ps;
+		this.fl = fl;
 	}
 	
 	//Getters and Setters
@@ -90,5 +96,36 @@ public class Controller {
 		
 		p.println("]");
 		p.println("}");
+	}
+	@SuppressWarnings("resource")
+	public void run(int n) {
+		new OutputStream() {
+				@Override
+				public void write(int b) throws IOException {
+					// TODO Auto-generated method stub
+					}
+			};
+			for (int i = 0; i <= n; i++) {
+				
+				this.ps.advance();
+			
+		}
+	}
+	public void reset() {
+		this.ps.reset();
+	}
+	public void setDeltaTime(Double dt) {
+		this.ps.setTimeReal(dt);
+	}
+	public void addObserver(SimulatorObserver o) {
+		this.ps.addObserver(o);
+	}
+	
+	public List<JSONObject>getForceLawsInfo(){
+		return this.fl.getInfo();
+		
+	}
+	public void setForceLaws(JSONObject info){
+		this.fl.createInstance(info);
 	}
 }
