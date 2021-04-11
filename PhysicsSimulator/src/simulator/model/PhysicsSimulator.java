@@ -120,7 +120,7 @@ public class PhysicsSimulator {
 		this.listBody.clear();
 		this.timeReal = 0;
 		for(SimulatorObserver o : this.listObserver) {
-			o.onReset(listBody, timeReal, timeActual, fl.toString());
+			o.onReset(listBody, timeActual, timeReal, fl.toString());
 		}
 	}
 	public void addObserver(SimulatorObserver o) {
