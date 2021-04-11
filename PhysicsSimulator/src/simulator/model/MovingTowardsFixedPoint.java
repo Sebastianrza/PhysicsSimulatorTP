@@ -23,7 +23,7 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 		}
 	}
 	public String toString() {
-		return "Moving Towards Fixed Point";
+		return "Moving Towards Fixed Point with constant acceleration -g "+this.gc;
 	}
 	
 
