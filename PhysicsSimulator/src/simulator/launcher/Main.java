@@ -300,7 +300,7 @@ public class Main {
         try {
             InputStream in = new FileInputStream(_inFile);
             InputStream eo = (_expOut != null) ? new FileInputStream(_expOut) : null;
-            Controller c = new Controller(ps, _bodyFactory);
+            Controller c = new Controller(ps, _bodyFactory, _forceLawsFactory);
             
             c.loadBodies(in);
             
