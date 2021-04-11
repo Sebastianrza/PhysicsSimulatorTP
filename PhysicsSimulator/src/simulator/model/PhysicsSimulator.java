@@ -12,6 +12,7 @@ public class PhysicsSimulator {
 	protected double timeActual;
 	protected ForceLaws fl;
 	protected List<Body> listBody;
+	protected List<SimulatorObserver> listObserver = new ArrayList<>();
 	
 	public PhysicsSimulator(Double time, ForceLaws fl) {
 		
@@ -46,7 +47,10 @@ public class PhysicsSimulator {
 	}
 
 	public void setFl(ForceLaws fl) {
-		this.fl = fl;
+		if(fl != null) {this.fl = fl;}
+		for(SimulatorObserver o : this.listObserver) {
+			o.onForceLawsChanged(fl.toString());
+		}
 	}
 
 	public List<Body> getListBody() {
@@ -58,6 +62,17 @@ public class PhysicsSimulator {
 	}
 	
 	//metodos
+
+	public double getTimeReal() {
+		return timeReal;
+	}
+
+	public void setTimeReal(double timeReal) {
+		this.timeReal = timeReal;
+		for(SimulatorObserver o : this.listObserver) {
+			o.onDeltaTimeChanged(timeReal);
+		}
+	}
 
 	public void advance() {
 		for(Body o: listBody) {
@@ -71,6 +86,9 @@ public class PhysicsSimulator {
 		}
 		
 		timeActual = timeActual + timeReal;
+		for(SimulatorObserver o : this.listObserver) {
+			o.onAdvance(listBody, this.timeReal);
+		}
 		
 	}
 	
@@ -79,6 +97,9 @@ public class PhysicsSimulator {
 			this.listBody.add(b);
 		}else {
 			throw new IllegalArgumentException("body cant no be added");
+		}
+		for(SimulatorObserver o : this.listObserver) {
+			o.onBodyAdded(listBody, b);
 		}
 	}
 	
@@ -94,6 +115,16 @@ public class PhysicsSimulator {
 		ps.put("time", this.timeActual);
 		ps.put("bodies", bo );
 		return ps;
+	}
+	public void reset() {
+		this.listBody.clear();
+		this.timeReal = 0;
+		for(SimulatorObserver o : this.listObserver) {
+			o.onReset(listBody, timeReal, timeActual, fl.toString());
+		}
+	}
+	public void addObserver(SimulatorObserver o) {
+		this.listObserver.add(o);
 	}
 	public String toString() {
 		return getState().toString();
