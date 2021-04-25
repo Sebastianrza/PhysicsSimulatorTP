@@ -29,7 +29,9 @@ public class Viewer extends JComponent implements SimulatorObserver{
 		private boolean _showHelp;
 		private boolean _showVectors;
 
-		Viewer(Controller ctrl) { initGUI(); ctrl.addObserver(this);
+		Viewer(Controller ctrl) { 
+			initGUI(); 
+			ctrl.addObserver(this);
 		}
 
 		private void initGUI() {
@@ -129,8 +131,11 @@ public class Viewer extends JComponent implements SimulatorObserver{
 		_centerY = getHeight() / 2;
 
 		// TODO draw a cross at center
+		
 		// TODO draw bodies (with vectors if _showVectors is true)
+		
 		// TODO draw help if _showHelp is true
+		
 		}
 
 		// other private/protected methods
@@ -188,25 +193,30 @@ public class Viewer extends JComponent implements SimulatorObserver{
 	@Override
 	public void onRegister(List<Body> bodies, double time, double dt, String flawsDesc) {
 		// TODO Auto-generated method stub
-		
+		_bodies = new ArrayList<>(bodies);
+		autoScale();
+		repaint();
 	}
 
 	@Override
 	public void onReset(List<Body> bodies, double time, double dt, String flawsDesc) {
 		// TODO Auto-generated method stub
-		
+		_bodies.clear();
+		autoScale();
+		repaint();
 	}
 
 	@Override
 	public void onBodyAdded(List<Body> bodies, Body b) {
 		// TODO Auto-generated method stub
-		
+		_bodies.add(b);
+		repaint();
 	}
 
 	@Override
 	public void onAdvance(List<Body> bodies, Double time) {
 		// TODO Auto-generated method stub
-		
+		repaint();
 	}
 
 	@Override
