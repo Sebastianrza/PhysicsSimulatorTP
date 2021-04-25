@@ -26,9 +26,11 @@ public class MainWindow extends JFrame{
 		 JPanel mainPanel = new JPanel(new BorderLayout());
 		 setContentPane(mainPanel);
 		 mainPanel.add(new ControlPanel(ctrl), BorderLayout.PAGE_START);
+		 mainPanel.add(new StatusBar(ctrl), BorderLayout.PAGE_END);
+		 
 		 mainPanel.add(centerPanel(), BorderLayout.CENTER);
 		 
-		 mainPanel.add(new StatusBar(ctrl), BorderLayout.SOUTH);
+		 
 		 
 		 this.setVisible(true);
 		 this.setBounds(400, 0, 800, 800);

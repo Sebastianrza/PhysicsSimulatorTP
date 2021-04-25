@@ -1,5 +1,6 @@
 package simulator.launcher;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -32,6 +34,7 @@ import simulator.factories.NoForceBuilder;
 import simulator.model.Body;
 import simulator.model.ForceLaws;
 import simulator.model.PhysicsSimulator;
+import views.MainWindow;
 
 public class Main {
 
@@ -41,7 +44,8 @@ public class Main {
 	private final static String _forceLawsDefaultValue = "nlug";
 	private final static String _stateComparatorDefaultValue = "epseq";
 	private final static Integer _stepsDefaultValue = 150;
-
+	private final static String _modeDefaultValue = "batch";
+	private static boolean _batchMode;
 	// some attributes to stores values corresponding to command-line parameters
 	//
 	private static Double _dtime = 2500.00;
@@ -167,6 +171,9 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("eo").longOpt("expected-output").hasArg()
 				.desc("The expected output file. If not provided no comparison is applied").build());
 		
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg().desc(
+				"Execution Mode. Possible values: 'batch' (Batch mode), 'gui' (Graphical User Interface mode). Default value: batch")
+				.build());
 	
 
 		return cmdLineOptions;
@@ -316,7 +323,34 @@ public class Main {
 
 	private static void start(String[] args) throws Exception {
 		parseArgs(args);
-		startBatchMode();
+		if (_batchMode)
+			startBatchMode();
+		else
+			startGUIMode();
+	}
+	
+	private static void startGUIMode() throws Exception {
+
+		ForceLaws forceLaws = _forceLawsFactory.createInstance(_forceLawsInfo);
+		PhysicsSimulator sim = new PhysicsSimulator(_dtime, forceLaws);
+		Controller ctrl = new Controller(sim, _bodyFactory, _forceLawsFactory);
+
+		if (_inFile != null) {
+			try (InputStream is = new FileInputStream(new File(_inFile));) {
+				ctrl.reset();
+				ctrl.loadBodies(is);
+			} catch (FileNotFoundException e) {
+				throw new ParseException("Invalid Input File");
+			}
+		}
+		ctrl.setDeltaTime(_dtime);
+
+		SwingUtilities.invokeAndWait(new Runnable() {
+			@Override
+			public void run() {
+				new MainWindow(ctrl);
+			}
+		});
 	}
 
 	public static void main(String[] args) {
