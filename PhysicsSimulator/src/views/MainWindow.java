@@ -1,7 +1,9 @@
 package views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -24,7 +26,26 @@ public class MainWindow extends JFrame{
 		 JPanel mainPanel = new JPanel(new BorderLayout());
 		 setContentPane(mainPanel);
 		 mainPanel.add(new ControlPanel(ctrl), BorderLayout.PAGE_START);
+		 mainPanel.add(centerPanel(), BorderLayout.CENTER);
+		 
+		 mainPanel.add(new StatusBar(ctrl), BorderLayout.SOUTH);
+		 
+		 this.setVisible(true);
+		 this.setBounds(400, 0, 800, 800);
+		 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+	}
+	
+	private JPanel centerPanel() {
+		JPanel panelCentral = new JPanel();
+		panelCentral.setBackground(Color.WHITE);
+		panelCentral.setLayout(new BoxLayout(panelCentral, BoxLayout.Y_AXIS));
+
+		panelCentral.add(new BodiesTable(ctrl));
+		panelCentral.add(new Viewer(ctrl));
+
+		return panelCentral;
+
 	}
 
 }
