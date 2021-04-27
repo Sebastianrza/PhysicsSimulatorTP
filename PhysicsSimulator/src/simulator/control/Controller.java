@@ -69,10 +69,14 @@ public class Controller {
 		p.println("{");
 		p.println("\"states\": [");
 		
+		
 		if(expOut !=null) {
 			
 			JSONObject ex = new JSONObject(new JSONTokener(expOut));
-				
+			if(ex!=null && !cmp.equal(ex.getJSONArray("states").getJSONObject(0), ps.getState())) {
+				throw new ExceptionNotEqualStates(ex.getJSONArray("states").getJSONObject(0), ps.getState(), 0);
+			}
+			
 			for (int i = 0; i <= n; i++) {
 				if(cmp.equal(ps.getState(),ex.getJSONArray("states").getJSONObject(i))) {
 					
@@ -81,7 +85,8 @@ public class Controller {
 					
 					if(i!=n)p.println(",");
 				}else {
-					throw new Exception("States Diferent " + ps.getState() + " in the time " + ps.getTime());
+					
+					throw new ExceptionNotEqualStates(ex.getJSONArray("states").getJSONObject(i), ps.getState(), i);
 				}
 				
 			}
