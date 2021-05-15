@@ -73,7 +73,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ForceLawsDialog fld = new ForceLawsDialog(ctrl, (JFrame) SwingUtilities.getWindowAncestor(fl));
+				ForceLawsDialog fld = new ForceLawsDialog(ctrl);
 				
 			}
 		});
@@ -170,8 +170,21 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		
 		this.run.addActionListener(new ActionListener(){
             public void actionPerformed (ActionEvent e){
-            	_stopped = false;
-            	run_sim(stepsNum);
+            	fl.setEnabled(false);
+            	fileChoose.setEnabled(false);
+				run.setEnabled(false);
+				_stopped = false;
+				try {
+				double delta = Double.parseDouble(dta.getText());
+				ctrl.setDeltaTime(delta);
+				}catch (Exception e1) {
+					JOptionPane.showMessageDialog(new JFrame(),
+		                    "Colocar valor válido para Delta",
+		                    "Error",
+		                    JOptionPane.ERROR_MESSAGE);
+				}
+				
+				run_sim(stepsNum);
             	
             }
         });
@@ -184,22 +197,24 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		this.exit.addActionListener(new ActionListener(){
             public void actionPerformed (ActionEvent e){
             
-            	int option = JOptionPane.showConfirmDialog(null, "Si pulsa yes se cerrara el programa", "cerrar la simulacion", JOptionPane.OK_OPTION);
-            	if(option ==  JOptionPane.OK_OPTION)
-            		System.exit(0);
+            	int n = JOptionPane.showOptionDialog(new JFrame(),
+						 "Are sure you want to quit?", "Quit",
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						 null, null);
+						 if (n == 0) {System.exit(0); }
             }
         });
 	}
 	@Override
 	public void onRegister(List<Body> bodies, double time, double dt, String flawsDesc) {
 		// TODO Auto-generated method stub
-		dta.setText(String.valueOf(dt));
+		dta.setText(Double.toString(dt));
 	}
 
 	@Override
 	public void onReset(List<Body> bodies, double time, double dt, String flawsDesc) {
 		// TODO Auto-generated method stub
-		dta.setText(String.valueOf(dt));
+		dta.setText(Double.toString(dt));
 	}
 
 	@Override
@@ -217,7 +232,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	@Override
 	public void onDeltaTimeChanged(Double dt) {
 		// TODO Auto-generated method stub
-		dta.setText(String.valueOf(dt));
+		dta.setText(Double.toString(dt));
 	}
 
 	@Override
@@ -227,9 +242,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	}
 	
 	private void run_sim(int n) {
-		JButtonStatus(false);
-		exit.setEnabled(true);
-		stop.setEnabled(true);
+		//JButtonStatus(false);
 		if(n>0 && !_stopped) {
 			try {
 				ctrl.run(1);
