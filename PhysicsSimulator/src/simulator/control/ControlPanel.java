@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ import javax.swing.event.ChangeListener;
 
 import simulator.model.Body;
 import simulator.model.SimulatorObserver;
+import views.ForceLawsDialog;
 
 public class ControlPanel extends JPanel implements SimulatorObserver {
 
@@ -67,6 +69,14 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		this.fl = new JButton();
 		this.fl.setToolTipText("Change Forces Laws");
 		this.fl.setIcon(new ImageIcon("resources/icons/physics.png"));
+		this.fl.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ForceLawsDialog fld = new ForceLawsDialog(ctrl, (JFrame) SwingUtilities.getWindowAncestor(fl));
+				
+			}
+		});
 		toolBar.add(this.fl);
 		toolBar.addSeparator();
 		
@@ -161,7 +171,6 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		this.run.addActionListener(new ActionListener(){
             public void actionPerformed (ActionEvent e){
             	_stopped = false;
-            	JButtonStatus(false);
             	run_sim(stepsNum);
             	
             }
