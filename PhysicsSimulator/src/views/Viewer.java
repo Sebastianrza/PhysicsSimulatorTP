@@ -140,10 +140,39 @@ public class Viewer extends JComponent implements SimulatorObserver{
 		_centerY = getHeight() / 2;
 
 		// TODO draw a cross at center
-		gr.fillRect(_centerX, _centerY, (int)(_centerX/_scale), (int)(_centerY/_scale));
-		// TODO draw bodies (with vectors if _showVectors is true)
+		gr.setColor(Color.red);
+		gr.drawLine(_centerX -10, _centerY, _centerX+10, _centerY);
+		gr.drawLine(_centerX , _centerY-10, _centerX, _centerY+10);
 		
+		for(Body b : _bodies) {
+			
+			if(_showVectors) {
+				//velocidad
+				Vector2D v = b.getVelocity().direction().scale(20);
+				Vector2D f = b.getForce().direction().scale(20);
+				
+				int x = _centerX + (int) (b.getPosition().getX() / _scale);
+				int y = _centerY -  (int) (b.getPosition().getY() / _scale);
+				int x2 = x + (int) v.getX();
+				int y2 = y - (int) v.getY();
+				int x1 = x + (int) f.getX();
+				int y1 = y - (int) f.getY();
+				
+				drawLineWithArrow(gr, x, y, x2, y2, 5, 5, Color.GREEN, Color.GREEN);
+				drawLineWithArrow(gr, x, y, x1, y1, 5, 5,  Color.RED, Color.RED);
+				
+				gr.setColor(Color.BLUE);
+				gr.fillOval(x-5, y-5, 10, 10);
+				gr.setColor(Color.BLACK);
+				gr.drawString(b.getId(), x , y-5);
+			}
+		}
 		// TODO draw help if _showHelp is true
+		if(_showHelp) {
+			gr.setColor(Color.RED);
+			gr.drawString("h:toggle help, v:toggle vectors, +: zoom-in, -: zoom-out, =: fit", 20, 30);
+			gr.drawString("Scaling ratio: " + _scale, 20, 48);
+		}
 		
 		}
 
