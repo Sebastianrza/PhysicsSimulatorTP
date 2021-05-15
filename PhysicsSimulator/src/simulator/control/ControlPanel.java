@@ -228,6 +228,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	
 	private void run_sim(int n) {
 		JButtonStatus(false);
+		exit.setEnabled(true);
+		stop.setEnabled(true);
 		if(n>0 && !_stopped) {
 			try {
 				ctrl.run(1);
@@ -241,6 +243,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 				public void run() {
 					// TODO Auto-generated method stub
 					run_sim(n-1);
+					
 				}
 				
 			});
