@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,7 +12,9 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.border.TitledBorder;
 
 import simulator.control.Controller;
 import simulator.misc.Vector2D;
@@ -36,18 +39,16 @@ public class Viewer extends JComponent implements SimulatorObserver{
 
 		private void initGUI() {
 		// TODO add border with title
-
+		
+		setLayout(new BorderLayout());
+		setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 2),"Viewer",TitledBorder.LEFT, TitledBorder.TOP));
 		_bodies = new ArrayList<>();
 		_scale = 1.0;
 		_showHelp = true;
-		_showVectors = true; addKeyListener(new KeyListener() {
+		_showVectors = true; 
+		addKeyListener(new KeyListener() {
 
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
+		
 			@Override
 			public void keyPressed(KeyEvent e) { 
 				switch (e.getKeyChar()) {
@@ -77,6 +78,12 @@ public class Viewer extends JComponent implements SimulatorObserver{
 
 			@Override
 			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
 				
 			}
@@ -122,8 +129,10 @@ public class Viewer extends JComponent implements SimulatorObserver{
 			super.paintComponent(g);
 
 		// use ’gr’ to draw not ’g’ --- it gives nicer results 
-		Graphics2D gr = (Graphics2D) g; gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-		RenderingHints.VALUE_ANTIALIAS_ON); gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+		Graphics2D gr = (Graphics2D) g; 
+		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		RenderingHints.VALUE_ANTIALIAS_ON); 
+		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 		RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 		// calculate the center
@@ -131,7 +140,7 @@ public class Viewer extends JComponent implements SimulatorObserver{
 		_centerY = getHeight() / 2;
 
 		// TODO draw a cross at center
-		
+		gr.fillRect(_centerX, _centerY, (int)(_centerX/_scale), (int)(_centerY/_scale));
 		// TODO draw bodies (with vectors if _showVectors is true)
 		
 		// TODO draw help if _showHelp is true
