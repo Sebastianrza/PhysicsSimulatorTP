@@ -3,6 +3,7 @@ package simulator.control;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -32,7 +33,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	private static final long serialVersionUID = 1L;
 	
 	private Controller ctrl;
-	private boolean _stopped;
+	private boolean _stopped=false;
 	private JButton fileChoose;
 	private JButton stop;
 	private JButton run;
@@ -46,12 +47,13 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	
 	public ControlPanel(Controller ctrl){
 		this.ctrl = ctrl;
-		this._stopped = true;
 		initGUI();
 		ctrl.addObserver(this);
 	}
 	
 	private void initGUI() {
+		this.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
 		JToolBar toolBar = new JToolBar("Control Panel");
 		file = new JFileChooser(new File("resources/examples"));
 		fFilePath = new String();
@@ -79,7 +81,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		toolBar.add(this.stop);
 		
 		toolBar.add(new JLabel("Steps:"));
-		this.steps = new JSpinner(new SpinnerNumberModel(1500, 0, Integer.MAX_VALUE, 1));
+		this.steps = new JSpinner(new SpinnerNumberModel(10000, 0, Integer.MAX_VALUE, 1));
 		this.steps.setToolTipText("Simulation steps to run: 1-10000");
 		this.steps.setMaximumSize(new Dimension(80, 40));
 		this.steps.setMinimumSize(new Dimension(80, 40));
@@ -102,6 +104,9 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		toolBar.add(new JLabel("Delta-Time:"));
 		this.dta = new JTextField();
 		this.dta.setToolTipText("Change Delta-Time");
+		this.dta.setMaximumSize(new Dimension(80, 40));
+		this.dta.setMinimumSize(new Dimension(80, 40));
+		this.dta.setPreferredSize(new Dimension(80, 40));
 		this.dta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,7 +128,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		toolBar.setRollover(true);
 		
 		this.add(toolBar, BorderLayout.LINE_START);
-		this.add(this.exit, BorderLayout.LINE_END);
+		this.add(this.exit);
 		
 		
 		
@@ -170,7 +175,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		this.exit.addActionListener(new ActionListener(){
             public void actionPerformed (ActionEvent e){
             
-            	int option = JOptionPane.showConfirmDialog(null, "Si pulsa aceptar se cerrara el programa", "cerrar la simulacion", JOptionPane.OK_OPTION);
+            	int option = JOptionPane.showConfirmDialog(null, "Si pulsa yes se cerrara el programa", "cerrar la simulacion", JOptionPane.OK_OPTION);
             	if(option ==  JOptionPane.OK_OPTION)
             		System.exit(0);
             }
@@ -213,6 +218,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	}
 	
 	private void run_sim(int n) {
+		JButtonStatus(false);
 		if(n>0 && !_stopped) {
 			try {
 				ctrl.run(1);
@@ -230,6 +236,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 				
 			});
 		}else {
+			
 			_stopped = true;
 		}
 	}
@@ -243,6 +250,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		exit.setEnabled(b);
 		stop.setEnabled(b);
 		fl.setEnabled(b);
+		dta.setEnabled(b);
+		steps.setEnabled(b);
 	}
 
 }
