@@ -128,7 +128,6 @@ public class Viewer extends JComponent implements SimulatorObserver{
 		protected void paintComponent(Graphics g) { 
 			super.paintComponent(g);
 
-		// use ’gr’ to draw not ’g’ --- it gives nicer results 
 		Graphics2D gr = (Graphics2D) g; 
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		RenderingHints.VALUE_ANTIALIAS_ON); 
@@ -146,13 +145,19 @@ public class Viewer extends JComponent implements SimulatorObserver{
 		
 		for(Body b : _bodies) {
 			
+			int x = _centerX + (int) (b.getPosition().getX() / _scale);
+			int y = _centerY -  (int) (b.getPosition().getY() / _scale);
+			gr.setColor(Color.BLUE);
+			gr.fillOval(x-5, y-5, 10, 10);
+			gr.setColor(Color.BLACK);
+			gr.drawString(b.getId(), x , y-5);
+			
 			if(_showVectors) {
-				//velocidad
+				
 				Vector2D v = b.getVelocity().direction().scale(20);
 				Vector2D f = b.getForce().direction().scale(20);
 				
-				int x = _centerX + (int) (b.getPosition().getX() / _scale);
-				int y = _centerY -  (int) (b.getPosition().getY() / _scale);
+				
 				int x2 = x + (int) v.getX();
 				int y2 = y - (int) v.getY();
 				int x1 = x + (int) f.getX();
@@ -197,7 +202,6 @@ public class Viewer extends JComponent implements SimulatorObserver{
 		// The arrow is of height h and width w.
 		// The last two arguments are the colors of the arrow and the line 
 		
-		@SuppressWarnings("unused")
 		private void drawLineWithArrow(
 		Graphics g,
 		int x1, int y1,  
@@ -248,6 +252,7 @@ public class Viewer extends JComponent implements SimulatorObserver{
 	public void onBodyAdded(List<Body> bodies, Body b) {
 		// TODO Auto-generated method stub
 		_bodies.add(b);
+		autoScale();
 		repaint();
 	}
 
