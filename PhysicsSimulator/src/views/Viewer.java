@@ -128,7 +128,7 @@ public class Viewer extends JComponent implements SimulatorObserver{
 		protected void paintComponent(Graphics g) { 
 			super.paintComponent(g);
 
-		// use ’gr’ to draw not ’g’ --- it gives nicer results 
+		// use â€™grâ€™ to draw not â€™gâ€™ --- it gives nicer results 
 		Graphics2D gr = (Graphics2D) g; 
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		RenderingHints.VALUE_ANTIALIAS_ON); 
@@ -254,6 +254,7 @@ public class Viewer extends JComponent implements SimulatorObserver{
 	@Override
 	public void onAdvance(List<Body> bodies, Double time) {
 		// TODO Auto-generated method stub
+		_bodies = bodies;
 		repaint();
 	}
 
