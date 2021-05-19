@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -23,31 +24,32 @@ public class MainWindow extends JFrame{
 	
 	private void initGUI(){
 		
-		 JPanel mainPanel = new JPanel(new BorderLayout());
-		 setContentPane(mainPanel);
-		 mainPanel.add(new ControlPanel(ctrl), BorderLayout.PAGE_START);
-		 mainPanel.add(new StatusBar(ctrl), BorderLayout.PAGE_END);
-		 
-		 mainPanel.add(centerPanel(), BorderLayout.CENTER);
-		 
-		 
-		 
-		 this.setVisible(true);
-		 this.setBounds(400, 0, 800, 800);
-		 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		this.setContentPane(mainPanel);
+		//mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
+		
+		
+		JPanel menu = new ControlPanel(ctrl);
+		//menu.setPreferredSize(new Dimension(800,30));
+		mainPanel.add(menu,BorderLayout.PAGE_START);
+		BodiesTable bodies = new BodiesTable(ctrl, new BodiesTableModel(ctrl));
+		bodies.setPreferredSize(new Dimension(800,300));
+		bodies.setMaximumSize(new Dimension(Integer.MAX_VALUE,300));
+		
+		Viewer viewer = new Viewer(ctrl);
+		JPanel contentPanel = new JPanel();
+		contentPanel.setLayout(new BoxLayout(contentPanel,BoxLayout.Y_AXIS));
+		contentPanel.add(bodies);
+		contentPanel.add(viewer);
+		mainPanel.add(contentPanel,BorderLayout.CENTER);
+		StatusBar status = new StatusBar(ctrl);
+		mainPanel.add(status,BorderLayout.PAGE_END);
+		this.setMinimumSize(new Dimension(700,900));
+		// TODO complete this method to build the GUI
+		// ..
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
 		
 	}
 	
-	private JPanel centerPanel() {
-		JPanel panelCentral = new JPanel();
-		panelCentral.setBackground(Color.WHITE);
-		panelCentral.setLayout(new BoxLayout(panelCentral, BoxLayout.Y_AXIS));
-
-		panelCentral.add(new BodiesTable(ctrl));
-		panelCentral.add(new Viewer(ctrl));
-
-		return panelCentral;
-
-	}
-
 }

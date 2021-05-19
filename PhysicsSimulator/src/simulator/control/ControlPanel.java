@@ -1,7 +1,6 @@
 package simulator.control;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -23,8 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+
 
 import simulator.model.Body;
 import simulator.model.SimulatorObserver;
@@ -45,7 +43,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	private JTextField dta;
 	private JFileChooser file;
 	private String fFilePath;
-	private int stepsNum = 0;
+	
 	
 	public ControlPanel(Controller ctrl){
 		this.ctrl = ctrl;
@@ -96,23 +94,10 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		this.steps.setMaximumSize(new Dimension(80, 40));
 		this.steps.setMinimumSize(new Dimension(80, 40));
 		this.steps.setPreferredSize(new Dimension(80, 40));
-		this.steps.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				try {
-					stepsNum = Integer.parseInt(steps.getValue().toString());
-				}catch(Exception e1){
-					stepsNum = 1500;
-				}
-				
-			}
-			
-		});
 		toolBar.add(this.steps);
 		
 		toolBar.add(new JLabel("Delta-Time:"));
-		this.dta = new JTextField();
+		this.dta = new JTextField(5);
 		this.dta.setToolTipText("Change Delta-Time");
 		this.dta.setMaximumSize(new Dimension(80, 40));
 		this.dta.setMinimumSize(new Dimension(80, 40));
@@ -123,7 +108,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			try {
 				ctrl.setDeltaTime(Double.parseDouble(dta.getText()));
 				}catch (Exception e2){
-					ctrl.setDeltaTime(2500.00);
+					
 				}
 				
 			}});
@@ -179,11 +164,11 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 				ctrl.setDeltaTime(delta);
 				}catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(),
-		                    "Colocar valor v·lido para Delta",
+		                    "Colocar valor v√°lido para Delta",
 		                    "Error",
 		                    JOptionPane.ERROR_MESSAGE);
 				}
-				
+				int stepsNum = (int) steps.getValue();
 				run_sim(stepsNum);
             	
             }

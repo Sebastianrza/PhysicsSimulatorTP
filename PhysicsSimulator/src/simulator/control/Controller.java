@@ -104,6 +104,9 @@ public class Controller {
 	}
 	@SuppressWarnings("resource")
 	public void run(int n) {
+		JSONObject expOutJO = null;
+		JSONObject currState = null;
+		JSONObject expState = null;
 		new OutputStream() {
 				@Override
 				public void write(int b) throws IOException {
@@ -111,10 +114,13 @@ public class Controller {
 					}
 			};
 			for (int i = 0; i <= n; i++) {
-				
+				currState = ps.getState();
+				if(expOutJO != null) {
+					expState = expOutJO.getJSONArray("states").getJSONObject(i);
+				}
 				this.ps.advance();
-			
 		}
+			currState = ps.getState();
 	}
 	public void reset() {
 		this.ps.reset();
@@ -131,6 +137,6 @@ public class Controller {
 		
 	}
 	public void setForceLaws(JSONObject info){
-		this.fl.createInstance(info);
+		ps.setFl(fl.createInstance(info));
 	}
 }

@@ -52,13 +52,13 @@ public class BodiesTableModel extends AbstractTableModel implements SimulatorObs
 				s = ""+ b.getMass();
 				break;
 			case 2:	//posision
-				s = ""+ b.getPosition().asJSONArray();
+				s = ""+ b.getPosition();
 				break;
 			case 3:	//velocidad
-				s = "" + b.getVelocity().asJSONArray();
+				s = "" + b.getVelocity();
 				break;
 			case 4:	//fuerza
-				s = "" + b.getForce().asJSONArray();
+				s = "" + b.getForce();
 				break;
 			default:
 				assert(false);

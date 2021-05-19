@@ -15,16 +15,19 @@ import simulator.control.Controller;
 public class BodiesTable extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	BodiesTableModel btm;
-	BodiesTable(Controller ctrl){
-		
-		JTable bodiesTable = new JTable( new BodiesTableModel(ctrl));
+
+	BodiesTable(Controller ctrl, BodiesTableModel bodiesTableModel){
 		setLayout(new BorderLayout());
-		setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black,2),
-				"Bodies",TitledBorder.LEFT, TitledBorder.TOP));
+		setBorder(BorderFactory.createTitledBorder(
+		BorderFactory.createLineBorder(Color.black, 2),
+		"Bodies",
+		TitledBorder.LEFT, TitledBorder.TOP));
+		JTable table = new JTable(bodiesTableModel);
 		this.setPreferredSize(new Dimension(800,150));
-		
-		this.add(new JScrollPane(bodiesTable));
+	    JScrollPane scrollPane = new JScrollPane(table);
+	   
+		this.add(scrollPane);
+		// TODO complete
 	}
 	
 }
