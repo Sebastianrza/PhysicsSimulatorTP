@@ -17,7 +17,7 @@ import simulator.model.ForceLaws;
 import simulator.model.PhysicsSimulator;
 import simulator.model.SimulatorObserver;
 
-public class Controller {
+public class Controller {//git
 	
 	protected PhysicsSimulator ps;
 	protected Factory<Body> fb;
