@@ -226,8 +226,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		
 	}
 	
-	private void run_sim(int n) {
-		//JButtonStatus(false);
+	private void run_sim(int n) {;
 		if(n>0 && !_stopped) {
 			try {
 				ctrl.run(1);
@@ -246,7 +245,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 				
 			});
 		}else {
-			
+			stop();
 			_stopped = true;
 		}
 	}
