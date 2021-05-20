@@ -164,7 +164,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 				ctrl.setDeltaTime(delta);
 				}catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(),
-		                    "Colocar valor válido para Delta",
+		                    "Colocar valor valido para Delta",
 		                    "Error",
 		                    JOptionPane.ERROR_MESSAGE);
 				}
