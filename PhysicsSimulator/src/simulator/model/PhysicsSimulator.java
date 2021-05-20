@@ -87,7 +87,7 @@ public class PhysicsSimulator {
 		
 		timeActual = timeActual + timeReal;
 		for(SimulatorObserver o : this.listObserver) {
-			o.onAdvance(listBody, this.timeReal);
+			o.onAdvance(listBody, this.timeActual);
 		}
 		
 	}
@@ -125,6 +125,7 @@ public class PhysicsSimulator {
 	}
 	public void addObserver(SimulatorObserver o) {
 		this.listObserver.add(o);
+		o.onRegister(listBody, timeActual, timeReal, fl.toString());
 	}
 	public String toString() {
 		return getState().toString();

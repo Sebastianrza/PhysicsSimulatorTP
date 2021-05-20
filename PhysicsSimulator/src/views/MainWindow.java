@@ -41,7 +41,7 @@ public class MainWindow extends JFrame{
 		mainPanel.add(contentPanel,BorderLayout.CENTER);
 		StatusBar status = new StatusBar(ctrl);
 		mainPanel.add(status,BorderLayout.PAGE_END);
-		this.setMinimumSize(new Dimension(700,900));
+		this.setMinimumSize(new Dimension(900,700));
 	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
